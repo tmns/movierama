@@ -1,6 +1,6 @@
 import { getResults } from './models/Search';
 import { getNowPlaying } from './models/NowPlaying';
-import * as searchView from './views/searchView';
+import * as resultsView from './views/resultsView';
 import { elements, renderLoader, clearLoader } from './views/base';
 
 /** Global state of the App
@@ -12,20 +12,29 @@ const state = {
 };
 
 /**
+ * Set header
+ */
+const setHeader = () => {
+  const header = document.querySelector('h1');
+  header.innerText = state.showingNowPlaying ? 'Now Playing' : 'Search Results';
+}
+
+/**
  * Now Playing Controller
  */
 const controlNowPlaying = async () => {
   state.showingNowPlaying = true;
+  setHeader();
 
-  searchView.clearInput();
-  searchView.clearResults();
+  resultsView.clearInput();
+  resultsView.clearResults();
 
   renderLoader(elements.searchRes);
 
   try {
     const results = await getNowPlaying(1);
     clearLoader();
-    searchView.renderResults(results);
+    resultsView.renderResults(results);
   } catch(err) {
     console.log(err);
     clearLoader();
@@ -33,6 +42,7 @@ const controlNowPlaying = async () => {
 }
 
 (function initState() {
+  setHeader();
   controlNowPlaying();
 })();
 
@@ -40,19 +50,20 @@ const controlNowPlaying = async () => {
   * Search controller
   */
 const controlSearch = async () => {
-  const query = searchView.getInput();
+  const query = resultsView.getInput();
 
   if (query) {
     state.showingNowPlaying = false;
+    setHeader();
     state.search = query;
     
-    searchView.clearResults();
+    resultsView.clearResults();
     renderLoader(elements.searchRes);
     try {
       const results = await getResults(query, 1);
       console.log(results)
       clearLoader();
-      searchView.renderResults(results)
+      resultsView.renderResults(results)
     } catch (err) {
       console.log(err);
       clearLoader();
