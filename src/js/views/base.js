@@ -6,22 +6,24 @@ export const elements = {
 };
 
 export const elementStrings = {
-  loader: "loader"
+  spinner: "spinner"
 };
 
-export const renderLoader = parent => {
-  const loader = `
-    <div class="${elementStrings.loader}">
-      <i class="fas fa-circle-notch"></i>
-    </div>
+export const renderSpinner = parent => {
+  const spinner = `
+  <div class="${elementStrings.spinner}">
+    <span></span>
+  </div>
   `;
-  parent.insertAdjacentHTML("afterbegin", loader);
+  if (!document.querySelector(".spinner")) {
+    parent.insertAdjacentHTML("afterbegin", spinner);
+  }
 };
 
-export const clearLoader = () => {
-  const loader = document.querySelector(`.${elementStrings.loader}`);
+export const clearSpinner = () => {
+  const spinner = document.querySelector(`.${elementStrings.spinner}`);
 
-  if (loader) {
-    loader.parentElement.removeChild(loader);
+  if (spinner) {
+    spinner.parentElement.removeChild(spinner);
   }
 };

@@ -1,7 +1,5 @@
 import { elements } from "./base";
-import { key, baseUrl, posterUrl, genresPath } from '../config';
-
-export const getInput = () => elements.searchInput.value;
+import { key, baseUrl, posterUrl, genresPath } from "../config";
 
 let genres = [];
 
@@ -10,6 +8,8 @@ let genres = [];
   const data = await result.json();
   genres = data.genres;
 })();
+
+export const getInput = () => elements.searchInput.value;
 
 export const clearInput = () => {
   elements.searchInput.value = "";
@@ -30,26 +30,33 @@ export const highlightSelected = id => {
 };
 
 const renderMovie = async movie => {
-  const posterSrc = posterUrl + movie.poster_path; 
-  const genresFiltered = genres.filter(genre => movie.genre_ids.includes(genre.id));
+  const posterSrc = posterUrl + movie.poster_path;
+  const genresFiltered = genres.filter(genre =>
+    movie.genre_ids.includes(genre.id)
+  );
   const genreNames = genresFiltered.map(genre => genre.name);
   const markup = `
     <li>
       <div class="result">
-        <img src=${posterSrc} />
-        <div class="result-info"
+        ${movie.poster_path ? `<img src=${posterSrc} />` : ""}
+        <div class="result-info">
           <h2>${movie.title}</h2>
-          <p>${movie.release_date.slice(0,4)}</p>
-          <p>${genreNames.join(', ')}</p>
-          <p>${movie.vote_average}</p>
-          <p>${movie.overview}</p>
+          <p><strong>Release Year: </strong>${movie.release_date.slice(
+            0,
+            4
+          )}</p>
+          <p><strong>${
+            genreNames.length > 1 ? "Genres" : "Genre"
+          }: </strong>${genreNames.join(", ")}</p>
+          <p><strong>Average Rating: </strong>${movie.vote_average}</p>
+          <p><strong>Overview: </strong>${movie.overview}</p>
         </div>
       </div>
     </li>
   `;
-  elements.searchResList.insertAdjacentHTML('beforeEnd', markup);
+  elements.searchResList.insertAdjacentHTML("beforeEnd", markup);
 };
 
 export const renderResults = movies => {
   movies.forEach(renderMovie);
-}
+};

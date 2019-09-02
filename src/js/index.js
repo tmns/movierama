@@ -1,7 +1,7 @@
 import { getResults } from './models/Search';
 import { getNowPlaying } from './models/NowPlaying';
 import * as resultsView from './views/resultsView';
-import { elements, renderLoader, clearLoader } from './views/base';
+import { elements, renderSpinner, clearSpinner } from './views/base';
 
 /** Global state of the App
  * - Search
@@ -9,6 +9,7 @@ import { elements, renderLoader, clearLoader } from './views/base';
  */
 const state = {
    showingNowPlaying: true,
+   nowPlaying: []
 };
 
 /**
@@ -29,15 +30,16 @@ const controlNowPlaying = async () => {
   resultsView.clearInput();
   resultsView.clearResults();
 
-  renderLoader(elements.searchRes);
+  renderSpinner(elements.searchRes);
 
   try {
     const results = await getNowPlaying(1);
-    clearLoader();
+    clearSpinner();
+    state.nowPlaying = results;
     resultsView.renderResults(results);
   } catch(err) {
     console.log(err);
-    clearLoader();
+    clearSpinner();
   }
 }
 
@@ -55,19 +57,22 @@ const controlSearch = async () => {
   if (query) {
     state.showingNowPlaying = false;
     setHeader();
-    state.search = query;
     
     resultsView.clearResults();
-    renderLoader(elements.searchRes);
+    renderSpinner(elements.searchRes);
     try {
       const results = await getResults(query, 1);
-      console.log(results)
-      clearLoader();
+      clearSpinner();
       resultsView.renderResults(results)
     } catch (err) {
       console.log(err);
-      clearLoader();
+      clearSpinner();
     }
+  } else {
+    state.showingNowPlaying = true;
+    setHeader();
+    resultsView.clearResults();
+    resultsView.renderResults(state.nowPlaying);
   }
 }
 

@@ -6,7 +6,6 @@ export const getNowPlaying = async (page = 1) => {
       `${baseUrl}/movie/now_playing?api_key=${key}&page=${page}`
     );
     const data = await res.json();
-    console.log(data.results);
     return data.results;
   } catch (err) {
     console.log(err);
