@@ -10,11 +10,26 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/img/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/img/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/img/favicon-16x16.png"
+    />
     <link rel="manifest" href="/img/site.webmanifest" />
     <link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
     <script src="https://kit.fontawesome.com/49635f6c10.js"></script>
     <title>MovieRama // Search and find your favorite movies</title>
   </head>
@@ -23,18 +38,26 @@
     <div class="container">
       <header class="header">
         <div>
-            <img src="img/logo.svg" alt="Logo" class="header__logo">
-            <p>MovieRama</p>    
+          <img src="img/logo.svg" alt="Logo" class="header__logo" />
+          <p>MovieRama</p>
         </div>
         <h1>In Theaters Now</h1>
         <form class="search">
-          <input type="text" class="search__field" placeholder="Search for a movie">
+          <input
+            type="text"
+            class="search__field"
+            placeholder="Search for a movie"
+          />
           <button class="btn search__btn">
             <i class="fas fa-search"></i>
           </button>
         </form>
-
       </header>
+
+      <div class="results">
+        <ul class="results__list"></ul>
+      </div>
     </div>
+    <script type="text/javascript" src="js/bundle.js"></script>
   </body>
 </html>
