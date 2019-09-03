@@ -57,6 +57,7 @@ const controlNowPlaying = async () => {
  */
 const controlSearch = async () => {
   const query = resultsView.getInput();
+  console.log(query)
   state.page = 1;
 
   if (query) {
@@ -75,6 +76,7 @@ const controlSearch = async () => {
         const results = await getResults(query, state.page);
         state.resultsCache[query] = results;
         clearSpinner();
+        resultsView.clearResults();
         resultsView.renderResults(results);
         addClickListeners();
       } catch (err) {

@@ -1,5 +1,5 @@
 import { elements } from "./base";
-import { key, baseUrl, posterUrl, genresPath } from "../config";
+import { key, baseUrl, posterUrl, genresPath, noPosterPath } from "../config";
 
 let genres = [];
 
@@ -20,7 +20,7 @@ export const clearResults = () => {
 };
 
 const renderMovie = async movie => {
-  const posterSrc = posterUrl + movie.poster_path;
+  const posterSrc = movie.poster_path ? posterUrl + movie.poster_path : noPosterPath;
   const genresFiltered = genres.filter(genre =>
     movie.genre_ids.includes(genre.id)
   );
@@ -28,7 +28,7 @@ const renderMovie = async movie => {
   const markup = `
     <li key=${movie.id}>
       <div class="result">
-        ${movie.poster_path ? `<img src=${posterSrc} />` : ""}
+        <img src=${posterSrc} />
         <div class="result__info">
           <h2>${movie.title}</h2>
           <p><strong>Release Year: </strong>${movie.release_date.slice(

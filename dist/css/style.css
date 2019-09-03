@@ -143,8 +143,14 @@ body {
 
 .result__info {
   margin-left: 2rem;
+  `width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.result > img {
+  min-height: 278px;
+  min-width: 185px;
 }
 
 .result__info h2 {

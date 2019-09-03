@@ -1,4 +1,4 @@
-import { posterUrl } from "../config";
+import { posterUrl, noPosterPath } from "../config";
 
 const renderVideo = (parent, video) => {
   let baseUrl = "";
@@ -24,11 +24,11 @@ const renderReview = (parent, review) => {
 };
 
 const renderSimilar = (parent, similar) => {
-  const posterSrc = posterUrl + similar.poster_path;
+  const posterSrc = similar.poster_path ? posterUrl + similar.poster_path : noPosterPath;
 
   const markup = `
     <div class="similar">
-      ${similar.poster_path ? `<img src=${posterSrc} />` : ""}
+      <img src=${posterSrc} />
       <div class="similar__info">
         <p><strong>Title: </strong>${similar.title}</p>
         <p><strong>Release: </strong>${similar.release_date.slice(0, 4)}</p>
