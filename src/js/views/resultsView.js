@@ -1,5 +1,7 @@
 import { elements } from "./base";
 import { key, baseUrl, posterUrl, genresPath, noPosterPath, doubleArrowSvg } from "../config";
+import { controlDetails } from '../index';
+import * as detailsView from "./detailsView";
 
 let genres = [];
 
@@ -50,6 +52,39 @@ const renderMovie = async movie => {
     </li>
   `;
   elements.resList.insertAdjacentHTML("beforeEnd", markup);
+
+  // Add click listener here, due to bug in handling it in index
+  const resultDiv = elements.resList.lastElementChild.querySelector('.result');
+  const showDetailsButton = resultDiv.querySelector(".result__showMore");
+  
+  showDetailsButton.addEventListener("click", e => {
+    if (showDetailsButton.classList.contains("result__showMore--active")) {
+      resultDiv.classList.remove("result--active");
+      showDetailsButton.classList.remove("result__showMore--active");
+      detailsView.clearDetails(showDetailsButton.parentElement);
+    } else {
+      resultDiv.classList.add("result--active")
+      showDetailsButton.classList.add("result__showMore--active");
+      const movieId = showDetailsButton.getAttribute("data-movie-id");
+      controlDetails(showDetailsButton, movieId);
+    }
+  })
+
+  // Add keydown listener for accessibility
+  showDetailsButton.addEventListener("keydown", e => {
+    if (e.key === 'Enter') {
+      if (showDetailsButton.classList.contains("result__showMore--active")) {
+        resultDiv.classList.remove("result--active");
+        showDetailsButton.classList.remove("result__showMore--active");
+        detailsView.clearDetails(showDetailsButton.parentElement);
+      } else {
+        resultDiv.classList.add("result--active")
+        showDetailsButton.classList.add("result__showMore--active");
+        const movieId = showDetailsButton.getAttribute("data-movie-id");
+        controlDetails(showDetailsButton, movieId);
+      }
+    }
+  })
 };
 
 export const renderResults = movies => {

@@ -40,7 +40,6 @@ const controlNowPlaying = async () => {
     clearSpinner();
     state.resultsCache["nowPlaying"] = results;
     resultsView.renderResults(results);
-    addClickListeners();
   } catch (err) {
     console.log(err);
     clearSpinner();
@@ -57,7 +56,7 @@ const controlNowPlaying = async () => {
  */
 const controlSearch = async () => {
   const query = resultsView.getInput();
-  console.log(query)
+  console.log(query);
   state.page = 1;
 
   if (query) {
@@ -70,7 +69,6 @@ const controlSearch = async () => {
     if (state.resultsCache[query]) {
       clearSpinner();
       resultsView.renderResults(state.resultsCache[query]);
-      addClickListeners();
     } else {
       try {
         const results = await getResults(query, state.page);
@@ -78,7 +76,6 @@ const controlSearch = async () => {
         clearSpinner();
         resultsView.clearResults();
         resultsView.renderResults(results);
-        addClickListeners();
       } catch (err) {
         console.log(err);
         clearSpinner();
@@ -89,7 +86,6 @@ const controlSearch = async () => {
     setHeader();
     resultsView.clearResults();
     resultsView.renderResults(state.resultsCache.nowPlaying);
-    addClickListeners();
   }
 };
 
@@ -102,13 +98,11 @@ const controlPagination = async () => {
   if (query) {
     if (state.resultsCache[`${query}${state.page}`]) {
       resultsView.renderResults(state.resultsCache[`${query}${state.page}`]);
-      addClickListeners();
     } else {
       try {
         const results = await getResults(query, state.page);
         state.resultsCache[`${query}${state.page}`] = results;
         resultsView.renderResults(results);
-        addClickListeners();
       } catch (err) {
         console.log(err);
       }
@@ -116,13 +110,11 @@ const controlPagination = async () => {
   } else {
     if (state.resultsCache[`nowPlaying${state.page}`]) {
       resultsView.renderResults(state.resultsCache[`nowPlaying${state.page}`]);
-      addClickListeners();
     } else {
       try {
         const results = await getNowPlaying(state.page);
         state.resultsCache[`nowPlaying${state.page}`] = results;
         resultsView.renderResults(results);
-        addClickListeners();
       } catch (err) {
         console.log(err);
       }
@@ -130,47 +122,14 @@ const controlPagination = async () => {
   }
 };
 
-const controlDetails = async (el, movieId) => {
+export const controlDetails = async (el, movieId) => {
   try {
     const details = await getDetails(movieId);
-    console.log(details)
+    console.log(details);
     detailsView.renderDetails(el.parentElement, details);
-  } catch(err) {
+  } catch (err) {
     console.log(err);
   }
-}
-
-const addClickListeners = () => {
-  const resultsArr = [...document.querySelectorAll(".result__showMore")];
-  resultsArr.forEach(el => {
-    el.addEventListener("click", e => {
-      const resultDiv = el.parentElement.parentElement;
-      resultDiv.classList.toggle("result--active");
-      if (el.classList.contains("result__showMore--active")) {
-        el.classList.remove("result__showMore--active");
-        detailsView.clearDetails(el.parentElement);
-      } else {
-        el.classList.add("result__showMore--active");
-        const movieId = el.getAttribute("data-movie-id");
-        controlDetails(el, movieId);  
-      }
-    });
-
-    el.addEventListener("keydown", e => {
-      if (e.key === 'Enter') {
-        const resultDiv = el.parentElement.parentElement;
-        resultDiv.classList.toggle("result--active");
-        if (el.classList.contains("result__showMore--active")) {
-          el.classList.remove("result__showMore--active");
-          detailsView.clearDetails(el.parentElement);
-        } else {
-          el.classList.add("result__showMore--active");
-          const movieId = el.getAttribute("data-movie-id");
-          controlDetails(el, movieId);  
-        }  
-      }
-    });
-  });
 };
 
 elements.searchInput.addEventListener("input", e => {

@@ -1,4 +1,10 @@
-import { posterUrl, noPosterPath, videoSvg, pencilSvg, filmSvg } from "../config";
+import {
+  posterUrl,
+  noPosterPath,
+  videoSvg,
+  pencilSvg,
+  filmSvg
+} from "../config";
 
 const renderVideo = (parent, video) => {
   let baseUrl = "";
@@ -24,7 +30,9 @@ const renderReview = (parent, review) => {
 };
 
 const renderSimilar = (parent, similar) => {
-  const posterSrc = similar.poster_path ? posterUrl + similar.poster_path : noPosterPath;
+  const posterSrc = similar.poster_path
+    ? posterUrl + similar.poster_path
+    : noPosterPath;
 
   const markup = `
     <div class="similar">
@@ -79,13 +87,22 @@ const renderData = (parent, details) => {
 };
 
 export const renderDetails = (parent, details) => {
-  const markup = `
-    <div class="result__details"></div>
-  `;
-  parent.insertAdjacentHTML("beforeend", markup);
-  renderData(parent, details);
+  if (parent.querySelector(".result__showMore--active")) {
+    const markup = `
+      <div class="result__details"></div>
+    `;
+    parent.insertAdjacentHTML("beforeend", markup);
+    renderData(parent, details);
+  } else {
+    console.log("Error: result__showMore--active class not set");
+  }
 };
 
 export const clearDetails = parent => {
-  parent.querySelector(".result__details").innerHTML = "";
+  const detailsDiv = parent.querySelector(".result__details");
+  if (detailsDiv !== null) {
+    detailsDiv.innerHTML = "";
+  } else {
+    console.log(`Error: detailsDiv does not exist.`);
+  }
 };
