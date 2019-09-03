@@ -28,7 +28,7 @@ const renderSimilar = (parent, similar) => {
 
   const markup = `
     <div class="similar">
-      <img src=${posterSrc} />
+      <img src=${posterSrc} alt="Movie poster for ${similar.title}"/>
       <div class="similar__info">
         <p><strong>Title: </strong>${similar.title}</p>
         <p><strong>Release: </strong>${similar.release_date.slice(0, 4)}</p>

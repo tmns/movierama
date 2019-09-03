@@ -155,6 +155,21 @@ const addClickListeners = () => {
         controlDetails(el, movieId);  
       }
     });
+
+    el.addEventListener("keydown", e => {
+      if (e.key === 'Enter') {
+        const resultDiv = el.parentElement.parentElement;
+        resultDiv.classList.toggle("result--active");
+        if (el.classList.contains("result__showMore--active")) {
+          el.classList.remove("result__showMore--active");
+          detailsView.clearDetails(el.parentElement);
+        } else {
+          el.classList.add("result__showMore--active");
+          const movieId = el.getAttribute("data-movie-id");
+          controlDetails(el, movieId);  
+        }  
+      }
+    });
   });
 };
 

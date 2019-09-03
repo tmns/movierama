@@ -30,7 +30,7 @@ const renderMovie = async movie => {
   const markup = `
     <li key=${movie.id}>
       <div class="result">
-        <img src=${posterSrc} />
+        <img src=${posterSrc} alt="Movie poster for ${movie.title}" />
         <div class="result__info">
           <h2>${movie.title}</h2>
           <p><strong>Release Year: </strong>${movie.release_date.slice(
