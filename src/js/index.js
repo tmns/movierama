@@ -33,7 +33,7 @@ const controlNowPlaying = async () => {
   resultsView.clearInput();
   resultsView.clearResults();
 
-  renderSpinner(elements.resContainer);
+  renderSpinner(elements.resContainer, "spinner__results");
 
   try {
     const results = await getNowPlaying(state.page);
@@ -65,7 +65,7 @@ const controlSearch = async () => {
     setHeader();
 
     resultsView.clearResults();
-    renderSpinner(elements.resContainer);
+    renderSpinner(elements.resContainer, "spinner__results");
 
     if (state.resultsCache[query]) {
       clearSpinner();

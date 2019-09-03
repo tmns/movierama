@@ -62,7 +62,8 @@ body {
 }
 
 .header h1 {
-  font-family: "Quicksand", sans-serif;
+  font-family: 'Pacifico', cursive;
+  color: rgba(1, 210, 119, 1);
   font-size: 3rem;
   padding-left: 6rem;
 }
@@ -82,7 +83,7 @@ body {
   transition: all .3s;
   margin-left: 1rem;
   margin-right: 2.5rem;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #efefef;
 }
 
 .search:focus-within {
@@ -266,8 +267,6 @@ body {
 }
 
 .spinner span {
-  width: 5.5rem;
-  height: 5.5rem;
   border-top-color: #aa2a6b;
   border-left-color: #aa2a6b;
   animation: spinner 1s linear infinite;
@@ -278,6 +277,11 @@ body {
   border-radius: 50%;  
   box-sizing: border-box;
   display: inline-block;
+}
+
+.spinner__results span {
+  width: 5.5rem;
+  height: 5.5rem;
 }
 
 @keyframes spinner {

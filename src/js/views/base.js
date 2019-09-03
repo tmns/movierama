@@ -9,13 +9,13 @@ export const elementStrings = {
   spinner: "spinner"
 };
 
-export const renderSpinner = parent => {
+export const renderSpinner = (parent, extraClass = '') => {
   const spinner = `
-  <div class="${elementStrings.spinner}">
+  <div class="${elementStrings.spinner} ${extraClass}">
     <span></span>
   </div>
   `;
-  if (!document.querySelector(".spinner")) {
+  if (!parent.querySelector(".spinner")) {
     parent.insertAdjacentHTML("afterbegin", spinner);
   }
 };
