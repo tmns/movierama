@@ -86,6 +86,13 @@ body {
   border-bottom: 1px solid #efefef;
 }
 
+.search > svg {
+  fill: #aa2a6b;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+}
+
 .search:focus-within {
   transform: translateY(-2px);
   border-radius: 10rem;
@@ -166,7 +173,7 @@ body {
   font-size: 1.5rem;
 }
 
-.result__showMore {
+.result__showMore > svg {
   border-radius: 50%;
   cursor: pointer;
   width: 2rem;
@@ -179,17 +186,17 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
-  color: #fff;
   background-color: rgba(37, 204, 247, 1);
+  color: #fff;
 }
 
-.result__showMore:hover {
+.result__showMore > svg:hover {
   box-shadow: 0 0.7rem 3rem;
   color: rgba(1, 210, 119, 1);
   background-color: #fff;
 }
 
-.result__showMore--active {
+.result__showMore--active > svg {
   transform: rotate(180deg) translateY(-40rem);
 }
 
@@ -208,6 +215,12 @@ body {
   border-bottom: 1px solid #efefef;
   padding-bottom: .4rem;
   margin-bottom: .8rem;
+}
+
+h3 > svg {
+  color: #aa2a6b;
+  height: 2rem;
+  width: 2rem;
 }
 
 .result__detailsVids {

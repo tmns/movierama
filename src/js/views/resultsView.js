@@ -1,5 +1,5 @@
 import { elements } from "./base";
-import { key, baseUrl, posterUrl, genresPath, noPosterPath } from "../config";
+import { key, baseUrl, posterUrl, genresPath, noPosterPath, doubleArrowSvg } from "../config";
 
 let genres = [];
 
@@ -20,7 +20,9 @@ export const clearResults = () => {
 };
 
 const renderMovie = async movie => {
-  const posterSrc = movie.poster_path ? posterUrl + movie.poster_path : noPosterPath;
+  const posterSrc = movie.poster_path
+    ? posterUrl + movie.poster_path
+    : noPosterPath;
   const genresFiltered = genres.filter(genre =>
     movie.genre_ids.includes(genre.id)
   );
@@ -41,7 +43,7 @@ const renderMovie = async movie => {
           <p><strong>Average Rating: </strong>${movie.vote_average}</p>
           <p><strong>Overview: </strong>${movie.overview}</p>
           <div class="result__showMore" data-movie-id=${movie.id}>
-            <i class="fas fa-angle-double-down"></i>
+          ${doubleArrowSvg}
           </div>
         </div>
       </div>

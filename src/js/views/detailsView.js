@@ -1,4 +1,4 @@
-import { posterUrl, noPosterPath } from "../config";
+import { posterUrl, noPosterPath, videoSvg, pencilSvg, filmSvg } from "../config";
 
 const renderVideo = (parent, video) => {
   let baseUrl = "";
@@ -42,11 +42,11 @@ const renderSimilar = (parent, similar) => {
 
 const renderData = (parent, details) => {
   const markup = `
-  <h3>Videos</h3>
+  <h3>${videoSvg} Videos</h3>
   <div class="result__detailsVids"></div>
-  <h3>Reviews</h3>
+  <h3>${pencilSvg} Reviews</h3>
   <div class="result__detailsReviews"></div>
-  <h3>Similar Movies</h3>
+  <h3>${filmSvg} Similar Movies</h3>
   <div class="result__detailsSimilar"></div>
   `;
   const resDetails = parent.querySelector(".result__details");
