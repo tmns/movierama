@@ -55,7 +55,7 @@ const renderData = (parent, details) => {
   if (details.videos.length !== 0) {
     details.videos.forEach(video => renderVideo(resDetails, video));
   } else {
-    const resDetailsVids = resDetails.querySelector(".result_detailsVids");
+    const resDetailsVids = resDetails.querySelector(".result__detailsVids");
     resDetailsVids.innerHTML = "<p>No videos for this movie.</p>";
   }
 
