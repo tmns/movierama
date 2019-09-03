@@ -16,17 +16,7 @@ export const clearInput = () => {
 };
 
 export const clearResults = () => {
-  elements.searchResList.innerHTML = "";
-};
-
-export const highlightSelected = id => {
-  const resultsArr = Array.from(document.querySelectorAll(".results__link"));
-  resultsArr.forEach(el => {
-    el.classList.remove("results__link--active");
-  });
-  document
-    .querySelector(`.results__link[href*="${id}"]`)
-    .classList.add("results__link--active");
+  elements.resList.innerHTML = "";
 };
 
 const renderMovie = async movie => {
@@ -36,10 +26,10 @@ const renderMovie = async movie => {
   );
   const genreNames = genresFiltered.map(genre => genre.name);
   const markup = `
-    <li>
+    <li key=${movie.id}>
       <div class="result">
         ${movie.poster_path ? `<img src=${posterSrc} />` : ""}
-        <div class="result-info">
+        <div class="result__info">
           <h2>${movie.title}</h2>
           <p><strong>Release Year: </strong>${movie.release_date.slice(
             0,
@@ -50,11 +40,14 @@ const renderMovie = async movie => {
           }: </strong>${genreNames.join(", ")}</p>
           <p><strong>Average Rating: </strong>${movie.vote_average}</p>
           <p><strong>Overview: </strong>${movie.overview}</p>
+          <div class="result__showMore" data-movie-id=${movie.id}>
+            <i class="fas fa-angle-double-down"></i>
+          </div>
         </div>
       </div>
     </li>
   `;
-  elements.searchResList.insertAdjacentHTML("beforeEnd", markup);
+  elements.resList.insertAdjacentHTML("beforeEnd", markup);
 };
 
 export const renderResults = movies => {

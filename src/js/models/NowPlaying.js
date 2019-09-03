@@ -1,9 +1,9 @@
-import { key, baseUrl } from "../config";
+import { key, baseUrl, nowPlayingPath } from "../config";
 
 export const getNowPlaying = async (page = 1) => {
   try {
     const res = await fetch(
-      `${baseUrl}/movie/now_playing?api_key=${key}&page=${page}`
+      `${baseUrl}/${nowPlayingPath}?api_key=${key}&page=${page}`
     );
     const data = await res.json();
     return data.results;

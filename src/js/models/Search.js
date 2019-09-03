@@ -1,9 +1,9 @@
-import { key, baseUrl } from "../config";
+import { key, baseUrl, searchPath } from "../config";
 
 export const getResults = async (query, page = 1) => {
   try {
     const res = await fetch(
-      `${baseUrl}/search/movie?api_key=${key}&page=${page}&query=${query}`
+      `${baseUrl}/${searchPath}?api_key=${key}&page=${page}&query=${query}`
     );
     const data = await res.json();
     console.log(data.results);

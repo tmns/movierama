@@ -1,6 +1,8 @@
 import { getResults } from "./models/Search";
 import { getNowPlaying } from "./models/NowPlaying";
+import { getDetails } from "./models/Details";
 import * as resultsView from "./views/resultsView";
+import * as detailsView from "./views/detailsView";
 import { elements, renderSpinner, clearSpinner } from "./views/base";
 
 /** Global state of the App
@@ -31,20 +33,21 @@ const controlNowPlaying = async () => {
   resultsView.clearInput();
   resultsView.clearResults();
 
-  renderSpinner(elements.searchRes);
+  renderSpinner(elements.resContainer);
 
   try {
     const results = await getNowPlaying(state.page);
     clearSpinner();
     state.resultsCache["nowPlaying"] = results;
     resultsView.renderResults(results);
+    addClickListeners();
   } catch (err) {
     console.log(err);
     clearSpinner();
   }
 };
 
-(function initState() {
+(function init() {
   setHeader();
   controlNowPlaying();
 })();
@@ -61,17 +64,19 @@ const controlSearch = async () => {
     setHeader();
 
     resultsView.clearResults();
-    renderSpinner(elements.searchRes);
+    renderSpinner(elements.resContainer);
 
     if (state.resultsCache[query]) {
       clearSpinner();
       resultsView.renderResults(state.resultsCache[query]);
+      addClickListeners();
     } else {
       try {
         const results = await getResults(query, state.page);
         state.resultsCache[query] = results;
         clearSpinner();
         resultsView.renderResults(results);
+        addClickListeners();
       } catch (err) {
         console.log(err);
         clearSpinner();
@@ -82,6 +87,7 @@ const controlSearch = async () => {
     setHeader();
     resultsView.clearResults();
     resultsView.renderResults(state.resultsCache.nowPlaying);
+    addClickListeners();
   }
 };
 
@@ -94,11 +100,13 @@ const controlPagination = async () => {
   if (query) {
     if (state.resultsCache[`${query}${state.page}`]) {
       resultsView.renderResults(state.resultsCache[`${query}${state.page}`]);
+      addClickListeners();
     } else {
       try {
         const results = await getResults(query, state.page);
         state.resultsCache[`${query}${state.page}`] = results;
         resultsView.renderResults(results);
+        addClickListeners();
       } catch (err) {
         console.log(err);
       }
@@ -106,11 +114,13 @@ const controlPagination = async () => {
   } else {
     if (state.resultsCache[`nowPlaying${state.page}`]) {
       resultsView.renderResults(state.resultsCache[`nowPlaying${state.page}`]);
+      addClickListeners();
     } else {
       try {
         const results = await getNowPlaying(state.page);
         state.resultsCache[`nowPlaying${state.page}`] = results;
         resultsView.renderResults(results);
+        addClickListeners();
       } catch (err) {
         console.log(err);
       }
@@ -118,17 +128,41 @@ const controlPagination = async () => {
   }
 };
 
+const controlDetails = async (el, movieId) => {
+  try {
+    const details = await getDetails(movieId);
+    console.log(details)
+    detailsView.renderDetails(el.parentElement, details);
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+const addClickListeners = () => {
+  const resultsArr = [...document.querySelectorAll(".result__showMore")];
+  resultsArr.forEach(el => {
+    el.addEventListener("click", e => {
+      if (el.classList.contains("result__showMore--active")) {
+        el.classList.remove("result__showMore--active");
+        detailsView.clearDetails(el.parentElement);
+      } else {
+        el.classList.add("result__showMore--active");
+        const movieId = el.getAttribute("data-movie-id");
+        controlDetails(el, movieId);  
+      }
+    });
+  });
+};
+
 elements.searchInput.addEventListener("input", e => {
-  // elements.searchResList.scroll({ top: elements.searchResList.offsetTop + 20, left: 0, behavior: 'smooth'});
-  e.preventDefault();
   controlSearch();
 });
 
-elements.searchResList.addEventListener("scroll", e => {
+elements.resList.addEventListener("scroll", e => {
   if (
-    elements.searchResList.offsetHeight + elements.searchResList.scrollTop ==
-    elements.searchResList.scrollHeight &&
-    elements.searchResList.innerHTML
+    elements.resList.offsetHeight + elements.resList.scrollTop ==
+      elements.resList.scrollHeight &&
+    elements.resList.innerHTML
   ) {
     state.page = state.page + 1;
     controlPagination();
