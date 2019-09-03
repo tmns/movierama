@@ -127,6 +127,13 @@ body {
   margin: 1rem 0;
   padding: 2rem 2rem;
   overflow-y: auto;
+  min-height: 0;
+  transition: min-height 1s ease-out;
+}
+
+.result--active {
+  min-height: 650px;
+  transition: min-height 1s ease-out;
 }
 
 .result:hover {

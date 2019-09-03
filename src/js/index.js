@@ -142,6 +142,8 @@ const addClickListeners = () => {
   const resultsArr = [...document.querySelectorAll(".result__showMore")];
   resultsArr.forEach(el => {
     el.addEventListener("click", e => {
+      const resultDiv = el.parentElement.parentElement;
+      resultDiv.classList.toggle("result--active");
       if (el.classList.contains("result__showMore--active")) {
         el.classList.remove("result__showMore--active");
         detailsView.clearDetails(el.parentElement);
