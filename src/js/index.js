@@ -6,9 +6,9 @@ import * as detailsView from "./views/detailsView";
 import { elements, renderSpinner, clearSpinner } from "./views/base";
 
 /** Global state of the App
- * - @showingNowPlaying - if the list of results is showing movies now playing in theaters or search results
- * - @page - the value of the last page that was requested in the API call for results
- * - @resultsCache - a cache of now playing and search results to be checked before making a potentially unnecessary API call
+ * @showingNowPlaying - if the list of results is showing movies now playing in theaters or search results
+ * @page - the value of the last page that was requested in the API call for results
+ * @resultsCache - a cache of now playing and search results to be checked before making a potentially unnecessary API call
  */
 const state = {
   showingNowPlaying: true,
