@@ -112,6 +112,14 @@ const renderMovie = async movie => {
   });
 };
 
+export const renderNoResultsMsg = () => {
+  elements.resList.innerHTML = '<p class="results__noResult">No results found.</p>'
+}
+
 export const renderResults = movies => {
-  movies.forEach(renderMovie);
+  if (movies.length != 0) {
+    movies.forEach(renderMovie);
+  } else {
+    renderNoResultsMsg();
+  }
 };

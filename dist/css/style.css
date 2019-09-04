@@ -68,7 +68,7 @@ body {
   font-family: 'Pacifico', cursive;
   color:  rgba(37, 204, 247, 1);
   font-size: 3rem;
-  padding-left: 6rem;
+  padding-left: 17rem;
 }
 
 .header p {
@@ -128,6 +128,11 @@ body {
   overflow-y: auto;
   padding: 1rem 2rem;
   list-style: none;
+}
+
+.results__noResult {
+  text-align: center;
+  font-size: 2rem;
 }
 
 .result {

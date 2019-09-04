@@ -1,4 +1,9 @@
-import { state, controlNowPlaying, controlSearch } from "./index.js";
+import {
+  state,
+  controlNowPlaying,
+  controlSearch,
+  controlPagination
+} from "./index.js";
 
 // Test controlNowPlaying - in turn tests getNowPlaying and renderResults
 (async function testControlNowPlaying() {
@@ -60,7 +65,7 @@ import { state, controlNowPlaying, controlSearch } from "./index.js";
     );
   }
 
-  // teset controlSearch caches results correctly
+  // test controlSearch caches results correctly
   if (!state.resultsCache.hasOwnProperty(state.query)) {
     console.log(
       `Suite controlSearch() test of setting cache correctly failed. Expected state.resultsCache.${state.query} to exist, received state.resultsCache ${state.resultsCache}`
@@ -68,3 +73,7 @@ import { state, controlNowPlaying, controlSearch } from "./index.js";
   }
 })();
 
+// test controlPagination - in turn tests getResults, getNowPlaying, and renderResults
+(async function testControlPagination() {
+
+})();

@@ -13,7 +13,7 @@ import { elements, renderSpinner, clearSpinner } from "./views/base";
  */
 export const state = {
   showingNowPlaying: true,
-  query: '',
+  query: "",
   page: 1,
   resultsCache: {}
 };
@@ -48,6 +48,7 @@ export const controlNowPlaying = async () => {
   } catch (err) {
     console.log(err);
     clearSpinner();
+    resultsView.renderNoResultsMsg();
   }
 };
 
@@ -55,14 +56,15 @@ export const controlNowPlaying = async () => {
 (async function init() {
   try {
     await controlNowPlaying();
-  } catch(err) {
+  } catch (err) {
     console.log(err);
+    resultsView.renderNoResultsMsg();
   }
 })();
 
 /**
  * Search controller
- * 1) If query, 
+ * 1) If query,
  *    a) set showingNowPlaying to false and update header
  *    b) clear previous results and render spinner
  *    c) check cache for query & render results if found
@@ -88,7 +90,7 @@ export const controlSearch = async () => {
       try {
         const results = await getResults(state.query, state.page);
         state.resultsCache[state.query] = results;
-        
+
         clearSpinner();
         // We must also clearResults here, as there is a chance the results list has been populated again
         resultsView.clearResults();
@@ -96,6 +98,7 @@ export const controlSearch = async () => {
       } catch (err) {
         console.log(err);
         clearSpinner();
+        resultsView.renderNoResultsMsg();
       }
     }
   } else {
@@ -117,10 +120,12 @@ export const controlSearch = async () => {
  *    b) render results if found
  *    c) else, attempt a new now playing API call and render results
  */
-const controlPagination = async () => {
+export const controlPagination = async () => {
   if (state.query) {
     if (state.resultsCache[`${state.query}${state.page}`]) {
-      resultsView.renderResults(state.resultsCache[`${state.query}${state.page}`]);
+      resultsView.renderResults(
+        state.resultsCache[`${state.query}${state.page}`]
+      );
     } else {
       try {
         const results = await getResults(state.query, state.page);
@@ -156,7 +161,7 @@ const controlPagination = async () => {
 export const controlDetails = async (el, movieId) => {
   const resInfoDiv = el.parentElement;
   detailsView.initDetailsDiv(resInfoDiv);
-  
+
   const detailsDiv = resInfoDiv.querySelector(".result__details");
   renderSpinner(detailsDiv, "spinner__details");
 

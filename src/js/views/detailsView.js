@@ -94,14 +94,14 @@ export const renderDetails = (parent, details) => {
   clearSpinner(parent);
   parent.insertAdjacentHTML("afterbegin", markup);
 
-  if (details.videos.length !== 0) {
+  if (details.videos.length != 0) {
     details.videos.forEach(video => renderVideo(parent, video));
   } else {
     const resDetailsVids = parent.querySelector(".result__detailsVids");
     resDetailsVids.innerHTML = "<p>No videos for this movie.</p>";
   }
 
-  if (details.reviews.length !== 0) {
+  if (details.reviews.length != 0) {
     details.reviews.forEach(review => renderReview(parent, review));
   } else {
     const resDetailsReviews = parent.querySelector(
@@ -110,7 +110,7 @@ export const renderDetails = (parent, details) => {
     resDetailsReviews.innerHTML = "<p>No reviews for this movie.</p>";
   }
 
-  if (details.similar.length !== 0) {
+  if (details.similar.length != 0) {
     details.similar.forEach(similar => renderSimilar(parent, similar));
   } else {
     const resDetailsSimilar = parent.querySelector(
