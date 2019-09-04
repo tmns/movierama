@@ -5,9 +5,11 @@ import {
   posterUrl,
   genresPath,
   noPosterPath,
-  doubleArrowSvg
+  doubleArrowSvg,
+  heartSvg,
+  heartFilledSvg
 } from "../config";
-import { controlDetails } from "../index";
+import { controlDetails, controlLike } from "../index";
 import * as detailsView from "./detailsView";
 import { lazyLoad } from "../utils";
 
@@ -33,16 +35,16 @@ export const clearResults = () => {
  * 3) Add lazy loading to image
  * 4) Add click and onpkeydown listeners to showMore button
  */
-const renderMovie = async movie => {
+const renderMovie = async (likes, movie) => {
   const posterSrc = movie.poster_path
     ? posterUrl + movie.poster_path
     : noPosterPath;
-  
+
   const genresFiltered = genres.filter(genre =>
     movie.genre_ids.includes(genre.id)
   );
   const genreNames = genresFiltered.map(genre => genre.name);
-  
+
   const markup = `
     <li key=${movie.id}>
       <div class="result">
@@ -50,7 +52,7 @@ const renderMovie = async movie => {
     movie.title
   }" />
         <div class="result__info">
-          <h2>${movie.title}</h2>
+          <h2>${movie.title} <span class="result__like" tabindex=0>${likes.isLiked(movie.id) ? heartFilledSvg : heartSvg}</span></h2>
           <p><strong>Release Year: </strong>${movie.release_date.slice(
             0,
             4
@@ -75,7 +77,9 @@ const renderMovie = async movie => {
   const image = resultDiv.querySelector(".lazy-loading");
   lazyLoad(image);
 
-  // Add click listener here, due to bug in handling it in index
+  // Add event listeners here, due to bug in handling them in index
+
+  // Add click handler for show more details button
   const showDetailsButton = resultDiv.querySelector(".result__showMore");
 
   showDetailsButton.addEventListener("click", e => {
@@ -93,7 +97,7 @@ const renderMovie = async movie => {
     }
   });
 
-  // Add keydown listener for accessibility
+  // Add keydown listener for show more details button for accessibility
   showDetailsButton.addEventListener("keydown", e => {
     if (e.key === "Enter") {
       if (showDetailsButton.classList.contains("result__showMore--active")) {
@@ -110,15 +114,27 @@ const renderMovie = async movie => {
       }
     }
   });
+
+  // Add event listeners here, due to bug in handling them in index
+  resultDiv.querySelector('.result__like').addEventListener("click", e => {
+    controlLike({ parent: resultDiv, id: movie.id, title: movie.title, img: posterSrc});
+  })
+
+  resultDiv.querySelector('.result__like').addEventListener("keydown", e => {
+    if (e.key === 'Enter') {
+      controlLike({ parent: resultDiv, id: movie.id, title: movie.title, img: posterSrc});
+    }
+  })
 };
 
 export const renderNoResultsMsg = () => {
-  elements.resList.innerHTML = '<p class="results__noResult">No results found.</p>'
-}
+  elements.resList.innerHTML =
+    '<p class="results__noResult">No results found.</p>';
+};
 
-export const renderResults = movies => {
+export const renderResults = (likes, movies) => {
   if (movies.length != 0) {
-    movies.forEach(renderMovie);
+    movies.forEach(movie => renderMovie(likes, movie));
   } else {
     renderNoResultsMsg();
   }

@@ -10,35 +10,35 @@ import {
  * Test suite for controlNowPlaying
  * In turn, also tests getNowPlaying and renderResults
  */
-(async function testControlNowPlaying() {
-  await controlNowPlaying();
+// (async function testControlNowPlaying() {
+//   await controlNowPlaying();
 
-  // test controlNowPlaying sets correct header
-  const headerText = document.querySelector("h1").innerText;
-  if (headerText !== "Now Playing") {
-    console.log(
-      `Suite testControlNowPlaying() test of setting correct header failed. Expected 'Now Playing', received ${headerText}`
-    );
-  }
+//   // test controlNowPlaying sets correct header
+//   const headerText = document.querySelector("h1").innerText;
+//   if (headerText !== "Now Playing") {
+//     console.log(
+//       `Suite testControlNowPlaying() test of setting correct header failed. Expected 'Now Playing', received ${headerText}`
+//     );
+//   }
 
-  // test controlNowPlaying add result item to DOM
-  const resultDiv = document.querySelector(".result");
-  if (!resultDiv) {
-    console.log(
-      `Suite testControlNowPlaying() test of setting a result div failed. Expected a valid DOM element, received ${resultDiv}`
-    );
-  }
+//   // test controlNowPlaying add result item to DOM
+//   const resultDiv = document.querySelector(".result");
+//   if (!resultDiv) {
+//     console.log(
+//       `Suite testControlNowPlaying() test of setting a result div failed. Expected a valid DOM element, received ${resultDiv}`
+//     );
+//   }
 
-  // test controlNowPlaying initializes state correctly
-  if (
-    state.showingNowPlaying !== true ||
-    !state.resultsCache.hasOwnProperty("nowPlaying")
-  ) {
-    console.log(
-      `Suite testControlNowPlaying() test of setting correct state failed. Expected state.showNowPlaying to be true and state.resultsCache.nowPlaying to be non-empty. Received state: ${state.showingNowPlaying} and state.resultsCache: ${state.resultsCache}`
-    );
-  }
-})();
+//   // test controlNowPlaying initializes state correctly
+//   if (
+//     state.showingNowPlaying !== true ||
+//     !state.resultsCache.hasOwnProperty("nowPlaying")
+//   ) {
+//     console.log(
+//       `Suite testControlNowPlaying() test of setting correct state failed. Expected state.showNowPlaying to be true and state.resultsCache.nowPlaying to be non-empty. Received state: ${state.showingNowPlaying} and state.resultsCache: ${state.resultsCache}`
+//     );
+//   }
+// })();
 
 /**
  * Test suite for controlSearch

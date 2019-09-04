@@ -2,7 +2,9 @@ export const elements = {
   searchForm: document.querySelector(".search"),
   searchInput: document.querySelector(".search__field"),
   resContainer: document.querySelector(".results"),
-  resList: document.querySelector(".results__list")
+  resList: document.querySelector(".results__list"),
+  likesMenu: document.querySelector(".likes__menu"),
+  likesList: document.querySelector(".likes__list")
 };
 
 export const elementStrings = {

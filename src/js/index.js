@@ -3,19 +3,23 @@ import { getNowPlaying } from "./models/NowPlaying";
 import { getDetails } from "./models/Details";
 import * as resultsView from "./views/resultsView";
 import * as detailsView from "./views/detailsView";
+import * as likesView from "./views/likesView";
 import { elements, renderSpinner, clearSpinner } from "./views/base";
+import { Likes } from "./models/Likes";
 
 /** Global state of the App
  * @showingNowPlaying - if the list of results is showing movies now playing in theaters or search results
  * @query - the query used for search API calls - tied to the search input field
  * @page - the value of the last page that was requested in the API call for results
  * @resultsCache - a cache of now playing and search results to be checked before making a potentially unnecessary API call
+ * @likes - a Likes object movdel containing the collection of movies a user has 'liked' and associated functions
  */
 export const state = {
   showingNowPlaying: true,
   query: "",
   page: 1,
-  resultsCache: {}
+  resultsCache: {},
+  likes: Likes()
 };
 
 /**
@@ -44,23 +48,13 @@ export const controlNowPlaying = async () => {
     const results = await getNowPlaying(state.page);
     clearSpinner();
     state.resultsCache["nowPlaying"] = results;
-    resultsView.renderResults(results);
+    resultsView.renderResults(state.likes, results);
   } catch (err) {
     console.log(err);
     clearSpinner();
     resultsView.renderNoResultsMsg();
   }
 };
-
-// IIFE to initialize page
-(async function init() {
-  try {
-    await controlNowPlaying();
-  } catch (err) {
-    console.log(err);
-    resultsView.renderNoResultsMsg();
-  }
-})();
 
 /**
  * Search controller
@@ -85,7 +79,7 @@ export const controlSearch = async () => {
 
     if (state.resultsCache[state.query]) {
       clearSpinner();
-      resultsView.renderResults(state.resultsCache[state.query]);
+      resultsView.renderResults(state.likes, state.resultsCache[state.query]);
     } else {
       try {
         const results = await getResults(state.query, state.page);
@@ -94,7 +88,7 @@ export const controlSearch = async () => {
         clearSpinner();
         // We must also clearResults here, as there is a chance the results list has been populated again
         resultsView.clearResults();
-        resultsView.renderResults(results);
+        resultsView.renderResults(state.likes, results);
       } catch (err) {
         console.log(err);
         clearSpinner();
@@ -105,7 +99,7 @@ export const controlSearch = async () => {
     state.showingNowPlaying = true;
     setHeader();
     resultsView.clearResults();
-    resultsView.renderResults(state.resultsCache.nowPlaying);
+    resultsView.renderResults(state.likes, state.resultsCache.nowPlaying);
   }
 };
 
@@ -123,26 +117,26 @@ export const controlSearch = async () => {
 export const controlPagination = async () => {
   if (state.query) {
     if (state.resultsCache[`${state.query}${state.page}`]) {
-      resultsView.renderResults(
+      resultsView.renderResults(state.likes, 
         state.resultsCache[`${state.query}${state.page}`]
       );
     } else {
       try {
         const results = await getResults(state.query, state.page);
         state.resultsCache[`${state.query}${state.page}`] = results;
-        resultsView.renderResults(results);
+        resultsView.renderResults(state.likes, results);
       } catch (err) {
         console.log(err);
       }
-    } 
+    }
   } else {
     if (state.resultsCache[`nowPlaying${state.page}`]) {
-      resultsView.renderResults(state.resultsCache[`nowPlaying${state.page}`]);
+      resultsView.renderResults(state.likes, state.resultsCache[`nowPlaying${state.page}`]);
     } else {
       try {
         const results = await getNowPlaying(state.page);
         state.resultsCache[`nowPlaying${state.page}`] = results;
-        resultsView.renderResults(results);
+        resultsView.renderResults(state.likes, results);
       } catch (err) {
         console.log(err);
       }
@@ -174,6 +168,27 @@ export const controlDetails = async (el, movieId) => {
   }
 };
 
+/**
+ * Likes controller
+ */
+export const controlLike = ({ parent, id, title, img }) => {
+  if (!state.likes) {
+    state.likes = Likes();
+  }
+
+  console.log(id, title, img);
+
+  if (!state.likes.isLiked(id)) {
+    const newLike = state.likes.addLike({ id, title, img });
+    likesView.toggleLikeBtn(parent, false);
+    // likesView.renderLike(newLike);
+  } else {
+    state.likes.deleteLike(id);
+    likesView.toggleLikeBtn(parent, true);
+    // likesView.deleteLike(id);
+  }
+};
+
 // ---------- Event listeners
 
 elements.searchInput.addEventListener("input", e => {
@@ -191,4 +206,20 @@ elements.resList.addEventListener("scroll", e => {
     state.query = resultsView.getInput();
     controlPagination();
   }
+});
+
+window.addEventListener("load", async () => {
+  // read in any likes stored in local storage
+  state.likes.readStorage();
+  
+  // initialize now playing list
+  try {
+    await controlNowPlaying();
+  } catch (err) {
+    console.log(err);
+    resultsView.renderNoResultsMsg();
+  }
+
+  // likesView.toggleLikeMenu(state.likes.getNumLikes());
+  state.likes.likes.forEach(like => likesView.renderLike(like));
 });

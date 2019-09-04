@@ -317,6 +317,23 @@ h3 > svg {
   100% { transform: rotate(360deg); }
 }
 
+.result__like {
+  margin-left: 1rem;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.result__like > svg {
+  height: 3rem;
+  color: red;
+  transition: transform .2s ease-in;
+}
+
+.result__like > svg:hover,
+.result__like > svg:focus {
+  transform: scale(1.1);
+}
+
 /* Media Queries
 --------------------------- */
 @media only screen and (max-width: 68.75em) {
@@ -407,5 +424,15 @@ h3 > svg {
 
   .similar__info {
     min-width: 8rem;
+  }
+
+  .result__like {
+    margin: 0;
+  }
+
+  .result__like > svg {
+    height: 2rem;
+    color: red;
+    transition: transform .2s ease-in;
   }
 }
