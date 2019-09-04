@@ -1,5 +1,9 @@
 import { key, baseUrl, nowPlayingPath } from "../config";
 
+/**
+ * Returns now playing results object
+ * @param page - Number of page to retrieve
+ */
 export const getNowPlaying = async (page = 1) => {
   try {
     const res = await fetch(
@@ -8,6 +12,6 @@ export const getNowPlaying = async (page = 1) => {
     const data = await res.json();
     return data.results;
   } catch (err) {
-    console.log(err);
+    throw new Error(`Error when attempting to fetch movies now playing: ${err}`)
   }
 };

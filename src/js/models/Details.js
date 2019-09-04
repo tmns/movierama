@@ -1,16 +1,24 @@
 import { key, baseUrl, videosPath, reviewsPath, similarPath } from "../config";
 
-const getVideos = async movieId => {
+/**
+ * Makes API call for videos and returns results
+ * @param movieId - String of movie id to for API call
+ */
+export const getVideos = async movieId => {
   try {
     const res = await fetch(`${baseUrl}/${videosPath(movieId)}?api_key=${key}`);
     const data = await res.json();
     return data.results;
   } catch (err) {
-    console.log(err);
+    throw new Error(`There was an error fetching the movies videos: ${err}.`)
   }
 };
 
-const getReviews = async movieId => {
+/**
+ * Makes API call for reviews and returns results
+ * @param movieId - String of movie id to for API call
+ */
+export const getReviews = async movieId => {
   try {
     const res = await fetch(
       `${baseUrl}/${reviewsPath(movieId)}?api_key=${key}`
@@ -18,20 +26,28 @@ const getReviews = async movieId => {
     const data = await res.json();
     return data.results;
   } catch (err) {
-    console.log(err);
+    throw new Error(`There was an error fetching the movies reviews: ${err}.`)
   }
 };
 
-const getSimilar = async movieId => {
+/**
+ * Makes API call for similar movies and returns results
+ * @param movieId - String of movie id to for API call
+ */
+export const getSimilar = async movieId => {
   try {
     const res = await fetch(`${baseUrl}/${similarPath(movieId)}?api_key=${key}`);
     const data = await res.json();
     return data.results;
   } catch (err) {
-    console.log(err);
+    throw new Error(`There was an error fetching the movies similar movies: ${err}`)
   }
 };
 
+/**
+ * Calls all details helper functions and returns final details object
+ * @param movieId - String of movie id to for API call
+ */
 export const getDetails = async movieId => {
   let details = {};
 
@@ -47,6 +63,6 @@ export const getDetails = async movieId => {
 
     return details;
   } catch (err) {
-    console.log(err);
+    throw new Error(`The following error ocurred when fetching movie details: ${err}`);
   }
 };
