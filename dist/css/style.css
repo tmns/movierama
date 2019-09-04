@@ -203,7 +203,8 @@ body {
   color: #fff;
 }
 
-.result__showMore > svg:hover {
+.result__showMore > svg:hover,
+.result__showMore > svg:focus {
   box-shadow: 0 0.7rem 3rem;
   color: rgba(1, 210, 119, 1);
   background-color: #fff;

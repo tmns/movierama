@@ -4,10 +4,10 @@
   "description": "A movie catalog using the MDB JSON API",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open"
+    "dev": "sed -i 's/index.test.js/index.js/g' webpack.config.js && webpack --mode development",
+    "build": "sed -i 's/index.test.js/index.js/g' webpack.config.js && webpack --mode production",
+    "start": "sed -i 's/index.test.js/index.js/g' webpack.config.js && webpack-dev-server --mode development --open",
+    "test": "sed -i 's/index.js/index.test.js/g' webpack.config.js && webpack-dev-server --mode development --open"
   },
   "author": "tmns <tmn5@pm.me>",
   "license": "ISC",
