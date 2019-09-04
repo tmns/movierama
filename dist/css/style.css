@@ -176,14 +176,19 @@ body {
   font-size: 1.5rem;
 }
 
+.result__showMore {
+  width: 2rem;
+  height: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 5rem;
+  margin-left: 35rem;
+}
+
 .result__showMore > svg {
   border-radius: 50%;
   cursor: pointer;
   width: 2rem;
   height: 2rem;
-  margin-top: 2rem;
-  margin-bottom: 4rem;
-  margin-left: 35rem;
   padding: 1rem;
   display: flex;
   justify-content: center;
@@ -268,10 +273,6 @@ h3 > svg {
   margin-right: 5rem;
 }
 
-.similar > img {
-  size: 80%;
-}
-
 .similar__info {
   margin-left: 1rem;
 }
@@ -318,7 +319,87 @@ h3 > svg {
   }
 
   .container {
-    width: 100%;
+    width: 90%;
     border-radius: 0;
+  }
+
+  .header__logo {
+    margin-left: 1rem;
+  }
+
+  .header p {
+    display: none;
+  }
+
+  .header h1 {
+    display: none;
+  }
+
+  .search {
+    width: 50%;
+  }
+
+  .result {
+    flex-direction: column;
+  }
+
+  .result__info {
+    margin-left: 0;
+    margin-top: 1.5rem;
+  }
+
+  .result > img {
+    min-height: 50%;
+    max-height: 50%;
+    min-width: 50%;
+    max-width: 50%;
+  }
+
+  .result__info h2 {
+    font-size: 2rem;
+  }
+
+  .result__info p {
+    font-size: 1.5rem;
+  }
+
+  .result__showMore {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin: 2rem auto 4rem auto;
+  }
+
+  .result__showMore > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .result__details > h3 {
+    width: 70%;
+    font-size: 1.7rem;
+  }
+
+  .result__detailsVids iframe {
+    margin-right: 2rem;
+    width: 270px;
+    height: 160px;
+  }
+
+  .result__detailsSimilar {
+    max-height: 20rem;
+    min-height: 20rem;
+  }
+
+  .similar {
+    padding-right: 5rem;
+  }
+
+  .similar img {
+    width: 100%;
+    height: 80%;
+  }
+
+  .similar__info {
+    min-width: 8rem;
   }
 }
