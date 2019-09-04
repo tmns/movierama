@@ -56,7 +56,6 @@ const controlNowPlaying = async () => {
  */
 const controlSearch = async () => {
   const query = resultsView.getInput();
-  console.log(query);
   state.page = 1;
 
   if (query) {
