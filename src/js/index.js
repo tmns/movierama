@@ -7,11 +7,13 @@ import { elements, renderSpinner, clearSpinner } from "./views/base";
 
 /** Global state of the App
  * @showingNowPlaying - if the list of results is showing movies now playing in theaters or search results
+ * @query - the query used for search API calls - tied to the search input field
  * @page - the value of the last page that was requested in the API call for results
  * @resultsCache - a cache of now playing and search results to be checked before making a potentially unnecessary API call
  */
-const state = {
+export const state = {
   showingNowPlaying: true,
+  query: '',
   page: 1,
   resultsCache: {}
 };
@@ -19,7 +21,7 @@ const state = {
 /**
  * Sets the header of the app based on value of showNowPlaying
  */
-const setHeader = () => {
+export const setHeader = () => {
   const header = document.querySelector("h1");
   header.innerText = state.showingNowPlaying ? "Now Playing" : "Search Results";
 };
@@ -31,7 +33,7 @@ const setHeader = () => {
  * 3) attempt API now playing call and render
  * 4) store results in cache
  */
-const controlNowPlaying = async () => {
+export const controlNowPlaying = async () => {
   state.showingNowPlaying = true;
   setHeader();
 
@@ -50,9 +52,12 @@ const controlNowPlaying = async () => {
 };
 
 // IIFE to initialize page
-(function init() {
-  setHeader();
-  controlNowPlaying();
+(async function init() {
+  try {
+    await controlNowPlaying();
+  } catch(err) {
+    console.log(err);
+  }
 })();
 
 /**
@@ -66,24 +71,24 @@ const controlNowPlaying = async () => {
  *    a) set showingNowPlaying to true and update header
  *    b) retrieve now playing from cache and render
  */
-const controlSearch = async () => {
-  const query = resultsView.getInput();
+export const controlSearch = async () => {
+  state.query = resultsView.getInput();
   state.page = 1; // any time a new search is made, we want the 1st page
 
-  if (query) {
+  if (state.query) {
     state.showingNowPlaying = false;
     setHeader();
 
     resultsView.clearResults();
     renderSpinner(elements.resContainer, "spinner__results");
 
-    if (state.resultsCache[query]) {
+    if (state.resultsCache[state.query]) {
       clearSpinner();
-      resultsView.renderResults(state.resultsCache[query]);
+      resultsView.renderResults(state.resultsCache[state.query]);
     } else {
       try {
-        const results = await getResults(query, state.page);
-        state.resultsCache[query] = results;
+        const results = await getResults(state.query, state.page);
+        state.resultsCache[state.query] = results;
         
         clearSpinner();
         // We must also clearResults here, as there is a chance the results list has been populated again
@@ -114,15 +119,15 @@ const controlSearch = async () => {
  *    c) else, attempt a new now playing API call and render results
  */
 const controlPagination = async () => {
-  const query = resultsView.getInput();
+  state.query = resultsView.getInput();
 
-  if (query) {
-    if (state.resultsCache[`${query}${state.page}`]) {
-      resultsView.renderResults(state.resultsCache[`${query}${state.page}`]);
+  if (state.query) {
+    if (state.resultsCache[`${state.query}${state.page}`]) {
+      resultsView.renderResults(state.resultsCache[`${state.query}${state.page}`]);
     } else {
       try {
-        const results = await getResults(query, state.page);
-        state.resultsCache[`${query}${state.page}`] = results;
+        const results = await getResults(state.query, state.page);
+        state.resultsCache[`${state.query}${state.page}`] = results;
         resultsView.renderResults(results);
       } catch (err) {
         console.log(err);

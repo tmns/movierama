@@ -4,13 +4,13 @@ import { key, baseUrl, videosPath, reviewsPath, similarPath } from "../config";
  * Makes API call for videos and returns results
  * @param movieId - String of movie id to for API call
  */
-export const getVideos = async movieId => {
+const getVideos = async movieId => {
   try {
     const res = await fetch(`${baseUrl}/${videosPath(movieId)}?api_key=${key}`);
     const data = await res.json();
     return data.results;
   } catch (err) {
-    throw new Error(`There was an error fetching the movies videos: ${err}.`)
+    throw new Error(`There was an error fetching the movies videos: ${err}.`);
   }
 };
 
@@ -18,7 +18,7 @@ export const getVideos = async movieId => {
  * Makes API call for reviews and returns results
  * @param movieId - String of movie id to for API call
  */
-export const getReviews = async movieId => {
+const getReviews = async movieId => {
   try {
     const res = await fetch(
       `${baseUrl}/${reviewsPath(movieId)}?api_key=${key}`
@@ -26,7 +26,7 @@ export const getReviews = async movieId => {
     const data = await res.json();
     return data.results;
   } catch (err) {
-    throw new Error(`There was an error fetching the movies reviews: ${err}.`)
+    throw new Error(`There was an error fetching the movies reviews: ${err}.`);
   }
 };
 
@@ -34,13 +34,17 @@ export const getReviews = async movieId => {
  * Makes API call for similar movies and returns results
  * @param movieId - String of movie id to for API call
  */
-export const getSimilar = async movieId => {
+const getSimilar = async movieId => {
   try {
-    const res = await fetch(`${baseUrl}/${similarPath(movieId)}?api_key=${key}`);
+    const res = await fetch(
+      `${baseUrl}/${similarPath(movieId)}?api_key=${key}`
+    );
     const data = await res.json();
     return data.results;
   } catch (err) {
-    throw new Error(`There was an error fetching the movies similar movies: ${err}`)
+    throw new Error(
+      `There was an error fetching the movies similar movies: ${err}`
+    );
   }
 };
 
@@ -63,6 +67,8 @@ export const getDetails = async movieId => {
 
     return details;
   } catch (err) {
-    throw new Error(`The following error ocurred when fetching movie details: ${err}`);
+    throw new Error(
+      `The following error ocurred when fetching movie details: ${err}`
+    );
   }
 };
