@@ -123,12 +123,18 @@ const controlPagination = async () => {
 };
 
 export const controlDetails = async (el, movieId) => {
+  const resInfoDiv = el.parentElement;
+  detailsView.initDetailsDiv(resInfoDiv);
+  
+  const detailsDiv = resInfoDiv.querySelector(".result__details");
+  renderSpinner(detailsDiv, "spinner__details");
+
   try {
     const details = await getDetails(movieId);
-    console.log(details);
-    detailsView.renderDetails(el.parentElement, details);
+    detailsView.renderDetails(detailsDiv, details);
   } catch (err) {
     console.log(err);
+    clearSpinner(detailsDiv);
   }
 };
 

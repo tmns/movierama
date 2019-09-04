@@ -5,6 +5,7 @@ import {
   pencilSvg,
   filmSvg
 } from "../config";
+import { renderSpinner, clearSpinner } from "./base";
 
 const renderVideo = (parent, video) => {
   let baseUrl = "";
@@ -48,7 +49,7 @@ const renderSimilar = (parent, similar) => {
   resDetailsSimilar.insertAdjacentHTML("beforeend", markup);
 };
 
-const renderData = (parent, details) => {
+export const renderDetails = (parent, details) => {
   const markup = `
   <h3>${videoSvg} Videos</h3>
   <div class="result__detailsVids"></div>
@@ -57,52 +58,43 @@ const renderData = (parent, details) => {
   <h3>${filmSvg} Similar Movies</h3>
   <div class="result__detailsSimilar"></div>
   `;
-  const resDetails = parent.querySelector(".result__details");
-  resDetails.insertAdjacentHTML("afterbegin", markup);
+  clearSpinner(parent);
+  parent.insertAdjacentHTML("afterbegin", markup);
 
   if (details.videos.length !== 0) {
-    details.videos.forEach(video => renderVideo(resDetails, video));
+    details.videos.forEach(video => renderVideo(parent, video));
   } else {
-    const resDetailsVids = resDetails.querySelector(".result__detailsVids");
+    const resDetailsVids = parent.querySelector(".result__detailsVids");
     resDetailsVids.innerHTML = "<p>No videos for this movie.</p>";
   }
 
   if (details.reviews.length !== 0) {
-    details.reviews.forEach(review => renderReview(resDetails, review));
+    details.reviews.forEach(review => renderReview(parent, review));
   } else {
-    const resDetailsReviews = resDetails.querySelector(
+    const resDetailsReviews = parent.querySelector(
       ".result__detailsReviews"
     );
     resDetailsReviews.innerHTML = "<p>No reviews for this movie.</p>";
   }
 
   if (details.similar.length !== 0) {
-    details.similar.forEach(similar => renderSimilar(resDetails, similar));
+    details.similar.forEach(similar => renderSimilar(parent, similar));
   } else {
-    const resDetailsSimilar = resDetails.querySelector(
+    const resDetailsSimilar = parent.querySelector(
       ".result__detailsSimilar"
     );
     resDetailsSimilar.innerHTML = "<p>No similar movies for this movie.</p>";
   }
 };
 
-export const renderDetails = (parent, details) => {
-  if (parent.querySelector(".result__showMore--active")) {
-    const markup = `
-      <div class="result__details"></div>
-    `;
-    parent.insertAdjacentHTML("beforeend", markup);
-    renderData(parent, details);
-  } else {
-    console.log("Error: result__showMore--active class not set");
-  }
-};
+export const initDetailsDiv = parent => {
+  const markup = `
+    <div class="result__details"></div>
+  `;
+  parent.insertAdjacentHTML("beforeend", markup);
+}
 
 export const clearDetails = parent => {
-  const detailsDiv = parent.querySelector(".result__details");
-  if (detailsDiv !== null) {
-    detailsDiv.innerHTML = "";
-  } else {
-    console.log(`Error: detailsDiv does not exist.`);
-  }
+  const detailsDiv = parent.querySelector(".result__details");    detailsDiv.innerHTML = "";
+
 };

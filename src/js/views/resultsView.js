@@ -66,7 +66,9 @@ const renderMovie = async movie => {
       resultDiv.classList.add("result--active")
       showDetailsButton.classList.add("result__showMore--active");
       const movieId = showDetailsButton.getAttribute("data-movie-id");
-      controlDetails(showDetailsButton, movieId);
+      setTimeout(() => {
+        controlDetails(showDetailsButton, movieId);
+      }, 300)
     }
   })
 
@@ -81,7 +83,9 @@ const renderMovie = async movie => {
         resultDiv.classList.add("result--active")
         showDetailsButton.classList.add("result__showMore--active");
         const movieId = showDetailsButton.getAttribute("data-movie-id");
-        controlDetails(showDetailsButton, movieId);
+        setTimeout(() => {
+          controlDetails(showDetailsButton, movieId);
+        }, 300)
       }
     }
   })
