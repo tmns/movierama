@@ -72,7 +72,6 @@ export const controlNowPlaying = async () => {
  *    b) retrieve now playing from cache and render
  */
 export const controlSearch = async () => {
-  state.query = resultsView.getInput();
   state.page = 1; // any time a new search is made, we want the 1st page
 
   if (state.query) {
@@ -175,6 +174,7 @@ export const controlDetails = async (el, movieId) => {
 // ---------- Event listeners
 
 elements.searchInput.addEventListener("input", e => {
+  state.query = resultsView.getInput();
   controlSearch();
 });
 

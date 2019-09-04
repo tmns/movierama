@@ -40,8 +40,38 @@ import { state, controlNowPlaying, controlSearch } from "./index.js";
 
 // Test controlSearch - in turn tests getResults and renderResults
 (async function testControlSearch() {
-  state.query = "rembetiko";
+  state.query = "Rembetiko";
   await controlSearch();
 
-  
+  // test controlSearch renders result div
+  const resultDiv = document.querySelector(".result");
+  if (!resultDiv) {
+    console.log(
+      `Suite controlSearch() test of setting a result div failed. Expected a valid DOM element, received ${resultDiv}`
+    );
+  }
+
+  // test controlSearch renders a result__info div
+  const resultInfoDiv = document.querySelector(".result__info");
+  if (!resultInfoDiv) {
+    console.log(
+      `Suite controlSearch() test of setting a result__info div failed. Expected a valid DOM element, received ${resultInfoDiv}`
+    );
+  }
+
+  // test controlSearch searches correct movie
+  const movieTitle = resultInfoDiv.querySelector("h2").innerText;
+  if (movieTitle !== state.query) {
+    console.log(
+      `Suite controlSearch() test of searching correct movie failed. Expected query string ${state.query}, received ${movieTitle}`
+    );
+  }
+
+  // teset controlSearch caches results correctly
+  if (!state.resultsCache.hasOwnProperty(state.query)) {
+    console.log(
+      `Suite controlSearch() test of setting cache correctly failed. Expected state.resultsCache.${state.query} to exist, received state.resultsCache ${state.resultsCache}`
+    );
+  }
 })();
+
