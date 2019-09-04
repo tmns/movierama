@@ -1,10 +1,3 @@
-import { getResults } from "./models/Search";
-import { getNowPlaying } from "./models/NowPlaying";
-import { getDetails } from "./models/Details";
-import * as resultsView from "./views/resultsView";
-import * as detailsView from "./views/detailsView";
-import { elements, renderSpinner, clearSpinner } from "./views/base";
-
 import { state, controlNowPlaying, controlSearch } from "./index.js";
 
 // Test controlNowPlaying - in turn tests getNowPlaying and renderResults

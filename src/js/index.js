@@ -118,8 +118,6 @@ export const controlSearch = async () => {
  *    c) else, attempt a new now playing API call and render results
  */
 const controlPagination = async () => {
-  state.query = resultsView.getInput();
-
   if (state.query) {
     if (state.resultsCache[`${state.query}${state.page}`]) {
       resultsView.renderResults(state.resultsCache[`${state.query}${state.page}`]);
@@ -185,6 +183,7 @@ elements.resList.addEventListener("scroll", e => {
     elements.resList.innerHTML
   ) {
     state.page = state.page + 1;
+    state.query = resultsView.getInput();
     controlPagination();
   }
 });
