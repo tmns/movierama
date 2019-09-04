@@ -134,7 +134,7 @@ export const controlPagination = async () => {
       } catch (err) {
         console.log(err);
       }
-    }
+    } 
   } else {
     if (state.resultsCache[`nowPlaying${state.page}`]) {
       resultsView.renderResults(state.resultsCache[`nowPlaying${state.page}`]);
