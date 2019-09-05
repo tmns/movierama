@@ -213,7 +213,7 @@ export const controlLikes = ({ parent, id, img, title, overview }) => {
 
 // ---------- Event listeners
 
-elements.searchInput.addEventListener("input", e => {
+elements.searchInput.addEventListener("input", () => {
   state.query = resultsView.getInput();
   controlSearch();
 });

@@ -24,6 +24,10 @@ const getReviews = async movieId => {
       `${baseUrl}/${reviewsPath(movieId)}?api_key=${key}`
     );
     const data = await res.json();
+    // The spec states we should render at most 2 reviews
+    if (data.results.length > 2) {
+      data.results = data.results.slice(0,2);
+    }
     return data.results;
   } catch (err) {
     throw new Error(`There was an error fetching the movies reviews: ${err}.`);

@@ -525,6 +525,11 @@ h3 > svg {
   transition: opacity 0.2s ease;
 }
 
+.likes__modalCloseBtn > svg {
+  color: black;
+  height: 2rem;
+}
+
 .likes__modalCloseBtn:hover,
 .likes__modalCloseBtn:focus {
   opacity: 0.9;
