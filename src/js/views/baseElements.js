@@ -16,9 +16,9 @@ export const elementStrings = {
 
 export const renderSpinner = (parent, extraClass = '') => {
   const spinner = `
-  <div class="${elementStrings.spinner} ${extraClass}">
-    <span></span>
-  </div>
+    <div class="${elementStrings.spinner} ${extraClass}">
+      <span></span>
+    </div>
   `;
   if (!parent.querySelector(".spinner")) {
     parent.insertAdjacentHTML("afterbegin", spinner);

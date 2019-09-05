@@ -221,7 +221,7 @@ elements.searchInput.addEventListener("input", e => {
 elements.resList.addEventListener("scroll", () => {
   if (
     elements.resList.offsetHeight + elements.resList.scrollTop ===
-      elements.resList.scrollHeight &&
+    elements.resList.scrollHeight &&
     elements.resList.innerHTML
   ) {
     state.page = state.page + 1;

@@ -48,15 +48,11 @@ const renderMovie = async (likes, movie) => {
   const markup = `
     <li key=${movie.id}>
       <div class="result">
-        <img class="lazy-loading" data-lazy=${posterSrc} alt="Movie poster for ${
-    movie.title
-  }" />
+        <img class="lazy-loading" data-lazy=${posterSrc} alt="Movie poster for ${movie.title}" />
         <div class="result__info">
-          <h2>${
-            movie.title
-          } <span class="result__like" tabindex="0" role="button" title="Save movie">${
-    likes.isLiked(movie.id) ? heartFilledSvg : heartSvg
-  }</span></h2>
+          <h2>${movie.title} <span class="result__like" tabindex="0" role="button" title="Save movie">${
+            likes.isLiked(movie.id) ? heartFilledSvg : heartSvg
+          }</span></h2>
           <p><strong>Release Year: </strong>${movie.release_date.slice(
             0,
             4
