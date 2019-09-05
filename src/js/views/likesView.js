@@ -15,6 +15,13 @@ export const toggleLikesModal = () => {
   elements.likesModal.classList.toggle("likes__modal--active");
 }
 
+/**
+ * Renders a single like item
+ * @like - Object holding like data
+ * 1) Create markup
+ * 2) Insert it into DOM
+ * 3) Add layy loading to image
+ */
 export const renderLike = like => {
   const markup = `
     <li class="likes__listItem" key=${like.id}>
@@ -34,7 +41,7 @@ export const renderLike = like => {
 };
 
 export const deleteLike = id => {
-  const likeItem = document.querySelector(`.likes__listItem[key*="${id}"]`);
+  const likeItem = document.querySelector(`.likes__listItem[key="${id}"]`);
   if (likeItem) {
     likeItem.parentElement.removeChild(likeItem);
   }

@@ -177,7 +177,22 @@ export const controlDetails = async (el, movieId) => {
 };
 
 /**
- * Likes controller
+ * Likes controller (called from resultsView.js)
+ * @parent - DOM element that we will render like button in
+ * @id - String of movie id
+ * @img - String of movie poster src url
+ * @title - String of movie title
+ * @overview - String of movie overview
+ * 1) If state doesn't contain likes object, create it
+ * 2) If movie is not already liked
+ *    a) Create like object for movie and add it to state
+ *    b) 'Fill' like heart icon
+ *    c) Render like
+ * 3) Else,
+ *    a) Remove like object from state
+ *    b) 'Unfill' like herat icon
+ *    c) Remove like from DOM
+ * 4) Hide like modal btn if no likes in state
  */
 export const controlLikes = ({ parent, id, img, title, overview }) => {
   if (!state.likes) {
