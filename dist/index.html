@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="MovieRama is an single page application that allows you to search and find movies using the MovieDB API."
+    />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <meta name="msapplication-TileColor" content="#00aba9" />
     <meta name="theme-color" content="#ffffff" />
-    <link
-      href="https://fonts.googleapis.com/css?family=Pacifico|Quicksand&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="css/style.css" />
     <link
       rel="apple-touch-icon"
@@ -30,34 +30,70 @@
     <link rel="manifest" href="/img/site.webmanifest" />
     <link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#5bbad5" />
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-    <script src="https://kit.fontawesome.com/49635f6c10.js"></script>
-    <title>MovieRama // Search and find your favorite movies</title>
+    <title>MovieRama // Search and find your favorite movies!</title>
   </head>
 
   <body>
+    <div class="likes__modalBtn" role="button" title="Show saved movies" tabindex="0">
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        data-prefix="fas"
+        data-icon="heart"
+        class="svg-inline--fa fa-heart fa-w-16"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+      >
+        <path
+          fill="currentColor"
+          d="M462.3 62.6C407.5 15.9 326 24.3 275.7 76.2L256 96.5l-19.7-20.3C186.1 24.3 104.5 15.9 49.7 62.6c-62.8 53.6-66.1 149.8-9.9 207.9l193.5 199.8c12.5 12.9 32.8 12.9 45.3 0l193.5-199.8c56.3-58.1 53-154.3-9.8-207.9z"
+        ></path>
+      </svg>
+    </div>
+    <div class="likes__modal">
+      <div class="overlay"></div>
+      <div class="likes__container">
+        <button class="likes__modalCloseBtn" title="Close" tabindex="0">X</button>
+        <ul class="likes__list"></ul>
+      </div>
+    </div>
     <div class="container">
       <header class="header">
         <div>
-          <img src="img/logo.svg" alt="Logo" class="header__logo" />
+          <img src="img/logo.svg" alt="Logo for website" class="header__logo" />
           <p>MovieRama</p>
         </div>
-        <h1>In Theaters Now</h1>
-        <form class="search">
+        <h1></h1>
+        <div class="search">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="search"
+            class="svg-inline--fa fa-search fa-w-16"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 512 512"
+          >
+            <path
+              fill="currentColor"
+              d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"
+            ></path>
+          </svg>
           <input
+            label="Search for a movie"
+            aria-label="Search for a movie"
             type="text"
             class="search__field"
             placeholder="Search for a movie"
           />
-          <button class="btn search__btn">
-            <i class="fas fa-search"></i>
-          </button>
-        </form>
+        </div>
       </header>
 
       <div class="results">
         <ul class="results__list"></ul>
       </div>
     </div>
-    <script type="text/javascript" src="js/bundle.js"></script>
-  </body>
+  <script type="text/javascript" src="js/bundle.js"></script></body>
 </html>
