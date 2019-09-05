@@ -264,3 +264,9 @@ elements.likesModalCloseBtn.addEventListener("click", () => {
 elements.overlay.addEventListener("click", () => {
   likesView.toggleLikesModal();
 });
+
+document.querySelector(".search__field").addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    this.blur();
+  }
+})
