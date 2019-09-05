@@ -125,7 +125,7 @@ export const controlPagination = async () => {
       try {
         const results = await getResults(state.query, state.page);
         state.resultsCache[`${state.query}${state.page}`] = results;
-        if (results.length != 0) {
+        if (results.length !== 0) {
           resultsView.renderResults(state.likes, results);
         }
       } catch (err) {
@@ -142,7 +142,7 @@ export const controlPagination = async () => {
       try {
         const results = await getNowPlaying(state.page);
         state.resultsCache[`nowPlaying${state.page}`] = results;
-        if (results.length != 0) {
+        if (results.length !== 0) {
           resultsView.renderResults(state.likes, results);
         }
       } catch (err) {

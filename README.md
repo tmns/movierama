@@ -70,4 +70,17 @@ Of course, improvements could still be made to both the optimization and overall
 * For the saved movies functionality, a way to remove saved movies from the saved movies modal.
 * Filters for movie results.
 
+## Challenges
+* A main challenge I faced was the double rendering of event handlers on all movie result items whenever another page of results was fetched (ie, due to the user scrolling). This led me to defining the event handlers in the view modules rather than the controllers, as this way I was able to add an event handler to each movie result item individually. I am not very happy with this solution because it blurs the borders of compartementalization - ie, I shouldn't have to import a controller into my view. Another solution I was originally thinking of was to do something like the following:
+```
+const movieResults = document.querySelectorAll(".result");
+movieResults = movieResults.slice(-20);
+movieResults.forEach(movieResult => {
+  movieResult.addEventListener("click", () =>{
+    // perform some action
+  });
+});
+```
+* ...in essence, I would first be targeting all movie result items and then selecting the last 20, which would avoid adding an extra event listener to items on the previous 'page'. This would work fine except for one glaring problem - it is not guaranteed that every search result will return 20 items! So, this is not a robust solution. A better solution could be to first calculate how many results have been rendered and then to 
+
 

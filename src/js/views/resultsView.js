@@ -146,7 +146,7 @@ export const renderNoResultsMsg = () => {
 };
 
 export const renderResults = (likes, movies) => {
-  if (movies.length != 0) {
+  if (movies.length !== 0) {
     movies.forEach(movie => renderMovie(likes, movie));
   } else {
     renderNoResultsMsg();
