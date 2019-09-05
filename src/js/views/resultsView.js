@@ -54,7 +54,7 @@ const renderMovie = async (likes, movie) => {
         <div class="result__info">
           <h2>${
             movie.title
-          } <span class="result__like" tabindex=0 role="button" title="Save movie">${
+          } <span class="result__like" tabindex="0" role="button" title="Save movie">${
     likes.isLiked(movie.id) ? heartFilledSvg : heartSvg
   }</span></h2>
           <p><strong>Release Year: </strong>${movie.release_date.slice(
@@ -121,7 +121,7 @@ const renderMovie = async (likes, movie) => {
   });
 
   // Add event listeners here, due to bug in handling them in index
-  resultDiv.querySelector(".result__like").addEventListener("click", e => {
+  resultDiv.querySelector(".result__like").addEventListener("click", () => {
     controlLikes({
       parent: resultDiv,
       id: movie.id,
