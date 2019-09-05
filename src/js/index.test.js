@@ -3,7 +3,8 @@ import {
   controlNowPlaying,
   controlSearch,
   controlPagination,
-  controlDetails
+  controlDetails,
+  controlLikes
 } from "./index.js";
 
 /**
@@ -167,12 +168,88 @@ import {
 //     );
 //   }
 
-//   // test controlDetails renders details correctly - 
+//   // test controlDetails renders details correctly -
 //   // ie, 20 similar movies are rendered in result__detailsSimilar div
 //   const numSimilar = [...resDetailsSimDiv.querySelectorAll(".similar")].length;
 //   if (numSimilar != 20) {
 //     console.log(
 //       `Suite testControlDetails() test of rendering details correctly failed. Expected 20 similar movies to be found in result__detailsSimilar, received ${numSimilar}`
+//     );
+//   }
+// })();
+
+/**
+ * Test suite for controlLikes
+ * In turn, also tests Likes and likesView
+ */
+// (async function testControlLikes() {
+//   await controlPagination();
+
+//   const likeButton = document.querySelector(".result__like");
+
+//   // first test liking a movie
+//   likeButton.click();
+
+//   // test controlLikes toggles like btn correctly
+//   let likeBtnStyle = document.querySelector(".result__like").querySelector('svg').getAttribute("data-icon");
+//   if (likeBtnStyle !== "heart-filled") {
+//     console.log(
+//       `Suite testControlLikes() test of toggling like button (on  unlike) correctly failed. Expected data-icon attribute to contain "heart-filled", received ${likeBtnStyle}`
+//     );
+//   }
+
+//   // test controlLikes toggles likes modal btn correctly
+//   let likesModalBtnDisplay = document.querySelector(".likes__modalBtn").style.display;
+//   if (likesModalBtnDisplay !== "block") {
+//     console.log(
+//       `Suite testControlLikes() test of toggling likes modal button correctly failed. Expected style.display to equal "block", received ${likesModalBtnDisplay}`
+//     );
+//   }
+
+//   // test controlLikes renders like item
+//   let likesListItem = document.querySelector(".likes__listItem");
+//   if (!likesListItem) {
+//     console.log(
+//       `Suite testControlLikes() test of rendering like item failed. Expected a valid DOM element, received ${likesListItem}`
+//     );
+//   }
+
+//   // test controlLikes renders correct like item (ie, movie id matches)
+//   const clickedId = document
+//     .querySelector(".results__list")
+//     .querySelector("li")
+//     .getAttribute("key");
+//   const renderedId = likesListItem.getAttribute("key");
+//   if (clickedId !== renderedId) {
+//     console.log(
+//       `Suite testControlLikes() test of rendering correct like item failed. Expected a movie id to be ${clickedId}, received ${renderedId}`
+//     );
+//   }
+
+//   // now test unliking a movie
+//   likeButton.click();
+
+//   // test controlLikes toggles like btn correctly
+//   likeBtnStyle = document.querySelector(".result__like").querySelector('svg').getAttribute("data-icon");
+//   if (likeBtnStyle === "heart-filled") {
+//     console.log(
+//       `Suite testControlLikes() test of toggling like button (on  unlike) correctly failed. Expected data-icon attribute to contain "heart", received ${likeBtnStyle}`
+//     );
+//   }
+
+//   // test controlLikes toggles likes modal btn correctly
+//   likesModalBtnDisplay = document.querySelector(".likes__modalBtn").style.display;
+//   if (likesModalBtnDisplay !== "none") {
+//     console.log(
+//       `Suite testControlLikes() test of toggling likes modal button correctly failed. Expected style.display to equal "none", received ${likesModalBtnDisplay}`
+//     );
+//   }
+
+//   // test controlLikes renders like item
+//   likesListItem = document.querySelector(".likes__listItem");
+//   if (likesListItem) {
+//     console.log(
+//       `Suite testControlLikes() test of rendering like item failed. Expected undefined, received ${likesListItem}`
 //     );
 //   }
 // })();
