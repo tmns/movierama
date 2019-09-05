@@ -6,9 +6,13 @@ export const toggleLikeBtn = (parent, isLiked) => {
   heartSpan.innerHTML = isLiked ? heartSvg : heartFilledSvg;
 };
 
-export const toggleLikeMenu = numLikes => {
-  elements.likesMenu.style.display = numLikes > 0 ? "flex" : "none";
+export const toggleLikesModalBtn = numLikes => {
+  elements.likesModalBtn.style.display = numLikes > 0 ? "block" : "none";
 };
+
+export const toggleLikesModal = () => {
+  elements.likesModal.classList.toggle("likes__modal--active");
+}
 
 export const renderLike = like => {
   const markup = `

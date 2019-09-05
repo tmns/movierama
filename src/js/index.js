@@ -124,7 +124,9 @@ export const controlPagination = async () => {
       try {
         const results = await getResults(state.query, state.page);
         state.resultsCache[`${state.query}${state.page}`] = results;
-        resultsView.renderResults(state.likes, results);
+        if (results.length != 0) {
+          resultsView.renderResults(state.likes, results);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -136,7 +138,9 @@ export const controlPagination = async () => {
       try {
         const results = await getNowPlaying(state.page);
         state.resultsCache[`nowPlaying${state.page}`] = results;
-        resultsView.renderResults(state.likes, results);
+        if (results.length != 0) {
+          resultsView.renderResults(state.likes, results);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -171,7 +175,7 @@ export const controlDetails = async (el, movieId) => {
 /**
  * Likes controller
  */
-export const controlLike = ({ parent, id, title, img }) => {
+export const controlLikes = ({ parent, id, title, img }) => {
   if (!state.likes) {
     state.likes = Likes();
   }
@@ -187,6 +191,7 @@ export const controlLike = ({ parent, id, title, img }) => {
     likesView.toggleLikeBtn(parent, true);
     // likesView.deleteLike(id);
   }
+  likesView.toggleLikesModalBtn(state.likes.getNumLikes());
 };
 
 // ---------- Event listeners
@@ -196,7 +201,7 @@ elements.searchInput.addEventListener("input", e => {
   controlSearch();
 });
 
-elements.resList.addEventListener("scroll", e => {
+elements.resList.addEventListener("scroll", () => {
   if (
     elements.resList.offsetHeight + elements.resList.scrollTop ==
       elements.resList.scrollHeight &&
@@ -220,6 +225,10 @@ window.addEventListener("load", async () => {
     resultsView.renderNoResultsMsg();
   }
 
-  // likesView.toggleLikeMenu(state.likes.getNumLikes());
+  likesView.toggleLikesModalBtn(state.likes.getNumLikes());
   state.likes.likes.forEach(like => likesView.renderLike(like));
 });
+
+elements.likesModalBtn.addEventListener("click", () => {
+  likesView.toggleLikesModal();
+})

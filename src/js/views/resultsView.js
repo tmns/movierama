@@ -9,7 +9,7 @@ import {
   heartSvg,
   heartFilledSvg
 } from "../config";
-import { controlDetails, controlLike } from "../index";
+import { controlDetails, controlLikes } from "../index";
 import * as detailsView from "./detailsView";
 import { lazyLoad } from "../utils";
 
@@ -52,7 +52,11 @@ const renderMovie = async (likes, movie) => {
     movie.title
   }" />
         <div class="result__info">
-          <h2>${movie.title} <span class="result__like" tabindex=0>${likes.isLiked(movie.id) ? heartFilledSvg : heartSvg}</span></h2>
+          <h2>${
+            movie.title
+          } <span class="result__like" tabindex=0 role="button" title="Save movie">${
+    likes.isLiked(movie.id) ? heartFilledSvg : heartSvg
+  }</span></h2>
           <p><strong>Release Year: </strong>${movie.release_date.slice(
             0,
             4
@@ -62,7 +66,7 @@ const renderMovie = async (likes, movie) => {
           }: </strong>${genreNames.join(", ")}</p>
           <p><strong>Average Rating: </strong>${movie.vote_average}</p>
           <p><strong>Overview: </strong>${movie.overview}</p>
-          <div class="result__showMore" data-movie-id=${movie.id}>
+          <div class="result__showMore" data-movie-id=${movie.id} role="button" title="Show more details">
           ${doubleArrowSvg}
           </div>
         </div>
@@ -116,15 +120,25 @@ const renderMovie = async (likes, movie) => {
   });
 
   // Add event listeners here, due to bug in handling them in index
-  resultDiv.querySelector('.result__like').addEventListener("click", e => {
-    controlLike({ parent: resultDiv, id: movie.id, title: movie.title, img: posterSrc});
-  })
+  resultDiv.querySelector(".result__like").addEventListener("click", e => {
+    controlLikes({
+      parent: resultDiv,
+      id: movie.id,
+      title: movie.title,
+      img: posterSrc
+    });
+  });
 
-  resultDiv.querySelector('.result__like').addEventListener("keydown", e => {
-    if (e.key === 'Enter') {
-      controlLike({ parent: resultDiv, id: movie.id, title: movie.title, img: posterSrc});
+  resultDiv.querySelector(".result__like").addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      controlLikes({
+        parent: resultDiv,
+        id: movie.id,
+        title: movie.title,
+        img: posterSrc
+      });
     }
-  })
+  });
 };
 
 export const renderNoResultsMsg = () => {

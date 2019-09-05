@@ -3,7 +3,8 @@ export const elements = {
   searchInput: document.querySelector(".search__field"),
   resContainer: document.querySelector(".results"),
   resList: document.querySelector(".results__list"),
-  likesMenu: document.querySelector(".likes__menu"),
+  likesModalBtn: document.querySelector(".likes__modalBtn"),
+  likesModal: document.querySelector(".likes__modal"),
   likesList: document.querySelector(".likes__list")
 };
 
