@@ -95,6 +95,7 @@ const renderMovie = async (likes, movie) => {
       resultDiv.classList.add("result--active");
       showDetailsButton.classList.add("result__showMore--active");
       const movieId = showDetailsButton.getAttribute("data-movie-id");
+      // We delay the action here slightly so that JS doesn't kill the css animation
       setTimeout(() => {
         controlDetails(showDetailsButton, movieId);
       }, 300);
@@ -124,8 +125,9 @@ const renderMovie = async (likes, movie) => {
     controlLikes({
       parent: resultDiv,
       id: movie.id,
+      img: posterSrc,
       title: movie.title,
-      img: posterSrc
+      overview: movie.overview
     });
   });
 
@@ -134,8 +136,9 @@ const renderMovie = async (likes, movie) => {
       controlLikes({
         parent: resultDiv,
         id: movie.id,
+        img: posterSrc,
         title: movie.title,
-        img: posterSrc
+        overview: movie.overview
       });
     }
   });

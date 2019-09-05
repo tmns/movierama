@@ -117,7 +117,8 @@ export const controlSearch = async () => {
 export const controlPagination = async () => {
   if (state.query) {
     if (state.resultsCache[`${state.query}${state.page}`]) {
-      resultsView.renderResults(state.likes, 
+      resultsView.renderResults(
+        state.likes,
         state.resultsCache[`${state.query}${state.page}`]
       );
     } else {
@@ -133,7 +134,10 @@ export const controlPagination = async () => {
     }
   } else {
     if (state.resultsCache[`nowPlaying${state.page}`]) {
-      resultsView.renderResults(state.likes, state.resultsCache[`nowPlaying${state.page}`]);
+      resultsView.renderResults(
+        state.likes,
+        state.resultsCache[`nowPlaying${state.page}`]
+      );
     } else {
       try {
         const results = await getNowPlaying(state.page);
@@ -175,7 +179,7 @@ export const controlDetails = async (el, movieId) => {
 /**
  * Likes controller
  */
-export const controlLikes = ({ parent, id, title, img }) => {
+export const controlLikes = ({ parent, id, img, title, overview }) => {
   if (!state.likes) {
     state.likes = Likes();
   }
@@ -183,13 +187,13 @@ export const controlLikes = ({ parent, id, title, img }) => {
   console.log(id, title, img);
 
   if (!state.likes.isLiked(id)) {
-    const newLike = state.likes.addLike({ id, title, img });
+    const newLike = state.likes.addLike({ id, img, title, overview });
     likesView.toggleLikeBtn(parent, false);
-    // likesView.renderLike(newLike);
+    likesView.renderLike(newLike);
   } else {
     state.likes.deleteLike(id);
     likesView.toggleLikeBtn(parent, true);
-    // likesView.deleteLike(id);
+    likesView.deleteLike(id);
   }
   likesView.toggleLikesModalBtn(state.likes.getNumLikes());
 };
@@ -216,7 +220,7 @@ elements.resList.addEventListener("scroll", () => {
 window.addEventListener("load", async () => {
   // read in any likes stored in local storage
   state.likes.readStorage();
-  
+
   // initialize now playing list
   try {
     await controlNowPlaying();
@@ -226,9 +230,25 @@ window.addEventListener("load", async () => {
   }
 
   likesView.toggleLikesModalBtn(state.likes.getNumLikes());
-  state.likes.likes.forEach(like => likesView.renderLike(like));
+  state.likes.renderLikes();
 });
 
 elements.likesModalBtn.addEventListener("click", () => {
   likesView.toggleLikesModal();
-})
+});
+
+elements.likesModalBtn.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    likesView.toggleLikesModal();
+  }
+});
+
+elements.likesModalCloseBtn.addEventListener("click", () => {
+  likesView.toggleLikesModal();
+});
+
+elements.overlay.addEventListener("click", () => {
+  likesView.toggleLikesModal();
+});
+
+

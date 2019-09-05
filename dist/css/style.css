@@ -388,7 +388,6 @@ h3 > svg {
   max-height: 60%;
   min-width: 60%;
   max-width: 60%;
-  overflow-x: hidden;
   overflow-y: auto;
   background: #fff;
   padding: 1.2rem;
@@ -399,8 +398,8 @@ h3 > svg {
 
 .likes__modalCloseBtn {
   position: absolute;
-  right: 2rem;
-  top: 2rem;
+  right: 1.2rem;
+  top: 1.2rem;
   cursor: pointer;
   font-size: 2rem;
   opacity: 0.5;
@@ -414,8 +413,44 @@ h3 > svg {
   opacity: 0.9;
 }
 
-.likes__list > ul {
+.likes__list {
   list-style: none;
+  padding: 1rem 2rem;
+}
+
+.like__container {
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  display: flex;
+  /* justify-content: start; */
+  align-items: start;
+  margin: 1rem 0;
+  padding: 2rem 2rem;
+}
+
+.like__container:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.like__container > img {
+  max-width: 20%;
+  max-height: 20%;
+}
+
+.like__details {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 1rem;
+}
+
+.like__details > h4 {
+  font-size: 2.5rem;
+}
+
+.like__details > p {
+  margin-top: 1rem;
+  font-size: 2rem;
 }
 
 /* Media Queries
@@ -523,5 +558,17 @@ h3 > svg {
     top: 1rem;
     left: 1rem;
     z-index: 100;
+  }
+
+  .like__container > img {
+    display: none;
+  }
+
+  .like__details > h4 {
+    font-size: 1.7rem;
+  }
+
+  .like__details > p {
+    font-size: 1.2rem;
   }
 }

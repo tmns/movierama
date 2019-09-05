@@ -1,3 +1,5 @@
+import { renderLike } from '../views/likesView';
+
 export const Likes = () => {
   let likes = [];
 
@@ -26,12 +28,16 @@ export const Likes = () => {
     persistData();
   };
 
-  const addLike = ({ id, title, img }) => {
-    const like = { id, title, img };
+  const addLike = ({ id, img, title, overview }) => {
+    const like = { id, img, title, overview };
     likes.push(like);
     persistData();
     return like;
   };
+
+  const renderLikes = () => {
+    likes.forEach(renderLike);
+  }
 
   return {
     likes,
@@ -40,6 +46,7 @@ export const Likes = () => {
     getNumLikes,
     isLiked,
     deleteLike,
-    addLike
+    addLike,
+    renderLikes
   }
 };

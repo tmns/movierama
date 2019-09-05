@@ -5,6 +5,8 @@ export const elements = {
   resList: document.querySelector(".results__list"),
   likesModalBtn: document.querySelector(".likes__modalBtn"),
   likesModal: document.querySelector(".likes__modal"),
+  overlay: document.querySelector(".overlay"),
+  likesModalCloseBtn: document.querySelector(".likes__modalCloseBtn"),
   likesList: document.querySelector(".likes__list")
 };
 
