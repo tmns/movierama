@@ -220,7 +220,7 @@ elements.searchInput.addEventListener("input", e => {
 
 elements.resList.addEventListener("scroll", () => {
   if (
-    elements.resList.offsetHeight + elements.resList.scrollTop ==
+    elements.resList.offsetHeight + elements.resList.scrollTop ===
       elements.resList.scrollHeight &&
     elements.resList.innerHTML
   ) {
@@ -264,5 +264,3 @@ elements.likesModalCloseBtn.addEventListener("click", () => {
 elements.overlay.addEventListener("click", () => {
   likesView.toggleLikesModal();
 });
-
-
