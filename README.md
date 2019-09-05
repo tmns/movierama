@@ -2,6 +2,7 @@
 
 ![](./screens/screen.png)
 
+##Intro
 MovieRama is a single page application that utilizes the [MovieDB API](https://developers.themoviedb.org/3) to allow you to browse movies, watch trailers, read reviews, and more. It is developed in completely vanilla JS. The only dependencies are a few Babel and Webpack packages required for transpiling / compiling. It is also responsive, so you can explore movies from your phone as well!
 
 More specifically, the app allows you to:
