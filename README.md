@@ -28,13 +28,13 @@ To build for production, `cd` to project root and run:
 ```
 $ npm run build
 ```
-This will run `webpack` with the `--mode` option set to `production`, which optimizes the build for a production setting. You can read more about this option [here](https://webpack.js.org/configuration/mode/).
+This will run `webpack` with the `--mode` option set to `production`, which optimizes the build for a production environment. You can read more about this option [here](https://webpack.js.org/configuration/mode/).
 
 To build for development, `cd` to project root and run:
 ```
 $ npm run dev
 ```
-This will run `webpack` with the `--mode` opption set to `develdopment`.
+This will run `webpack` with the `--mode` opption set to `development`.
 
 ## Run
 To run the app in development, `cd` to project root and run:
@@ -66,7 +66,7 @@ A few optimizations have been implemented to help improve the performance of the
 Of course, improvements could still be made to both the optimization and overall functionality of the app. Some of these include:
 * Caching 'more details' results (ie, videos, reviews, similar movies)
 * Lazy loading videos and 'similar movies' poster images
-* A better infinite scrolling implementation, using the `IntersectionObserver` API. See [here](https://medium.com/walmartlabs/infinite-scrolling-the-right-way-11b098a08815) for an idea.
+* A better infinite scrolling implementation, using the `IntersectionObserver` API perhaps. See [here](https://medium.com/walmartlabs/infinite-scrolling-the-right-way-11b098a08815) for an idea.
 * For the saved movies functionality, a way to remove saved movies from the saved movies modal.
 * Filters for movie results.
 
