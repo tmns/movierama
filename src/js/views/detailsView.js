@@ -5,7 +5,7 @@ import {
   pencilSvg,
   filmSvg
 } from "../config";
-import { clearSpinner } from "./base";
+import { clearSpinner } from "./baseElements";
 
 /**
  * Renders movie videos

@@ -4,7 +4,7 @@ import { getDetails } from "./models/Details";
 import * as resultsView from "./views/resultsView";
 import * as detailsView from "./views/detailsView";
 import * as likesView from "./views/likesView";
-import { elements, renderSpinner, clearSpinner } from "./views/base";
+import { elements, renderSpinner, clearSpinner } from "./views/baseElements";
 import { Likes } from "./models/Likes";
 
 /** Global state of the App
@@ -184,8 +184,6 @@ export const controlLikes = ({ parent, id, img, title, overview }) => {
     state.likes = Likes();
   }
 
-  console.log(id, title, img);
-
   if (!state.likes.isLiked(id)) {
     const newLike = state.likes.addLike({ id, img, title, overview });
     likesView.toggleLikeBtn(parent, false);
@@ -229,6 +227,7 @@ window.addEventListener("load", async () => {
     resultsView.renderNoResultsMsg();
   }
 
+  // if likes exist, render modal button and likes
   likesView.toggleLikesModalBtn(state.likes.getNumLikes());
   state.likes.renderLikes();
 });

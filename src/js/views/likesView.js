@@ -1,4 +1,4 @@
-import { elements } from "./base";
+import { elements } from "./baseElements";
 import { heartSvg, heartFilledSvg } from "../config";
 import { lazyLoad } from '../utils';
 

@@ -19,11 +19,11 @@ export const Likes = () => {
   };
 
   const isLiked = id => {
-    return likes.findIndex(el => el.id === id) !== -1;
+    return likes.findIndex(like => like.id === id) !== -1;
   };
 
   const deleteLike = id => {
-    const index = likes.findIndex(el => el.id === id);
+    const index = likes.findIndex(like => like.id === id);
     likes.splice(index, 1);
     persistData();
   };
