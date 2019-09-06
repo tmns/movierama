@@ -2,8 +2,19 @@
 
 ![](./screens/screen.png)
 
+## Table of Contents
+* [Intro](#intro)
+* [Install](#install)
+* [Build](#build)
+* [Run](#run)
+* [Test](#test)
+* [Analysis](#analysis)
+  * [Optimizations](#optimizations)
+  * [Improvements](#improvements)
+  * [Challenges](#challenges)
+
 ## Intro
-MovieRama is a single page application that utilizes the [MovieDB API](https://developers.themoviedb.org/3) to allow you to browse movies, watch trailers, read reviews, and more. It is developed in completely vanilla JS. The only dependencies are a few Babel and Webpack packages required for transpiling / compiling. It is also responsive, so you can explore movies from your phone as well!
+MovieRama is a single page application that utilizes the [MovieDB API](https://developers.themoviedb.org/3) to allow you to browse movies, watch trailers, read reviews, and more. It is developed entirely in vanilla JS. The only dependencies are a few Babel and Webpack packages required for transpiling / compiling. It is also responsive, so you can explore movies from your phone as well!
 
 More specifically, the app allows you to:
 
@@ -52,7 +63,11 @@ This uses `sed` to replace the entry point in `webpack.config.js` with `index.te
 
 Also, since hot reloading is enabled, you can change tests, uncomment out other test suites, etc. without stopping `webpack`. Then, the next time you run a different `npm` script, `sed` will run again automatically setting the entry point back to `index.js`. 
 
-## Optimizations
+## Analysis
+
+Below follows an analysis of the optimizations I included in the app, areas of improvement, and challenges I faced while developing.
+
+### Optimizations
 A few optimizations have been implemented to help improve the performance of the app, including:
 
 * Caching of now playing results
@@ -62,7 +77,7 @@ A few optimizations have been implemented to help improve the performance of the
 * Including svgs within the app rather than relying on external loading (eg FontAwesome)
 * Including fonts with the app rather than relying on external loading (eg Google Fonts)
 
-## Improvements
+### Improvements
 Of course, improvements could still be made to both the optimization and overall functionality of the app. Some of these include:
 * Caching 'more details' results (ie, videos, reviews, similar movies)
 * Lazy loading videos and 'similar movies' poster images
@@ -70,13 +85,13 @@ Of course, improvements could still be made to both the optimization and overall
 * For the saved movies functionality, a way to remove saved movies from the saved movies modal.
 * Filters for movie results.
 
-## Challenges
+### Challenges
 A main challenge I faced was the double rendering of event handlers on all movie result items whenever another page of results was fetched (ie, due to the user scrolling). This led me to defining the event handlers in the view modules rather than the controllers, as this way I was able to add an event handler to each movie result item individually.
 
 I am not very happy with this solution though because it blurs the borders of compartmentalization - ie, I shouldn't have to import a controller into my view. 
 
 Another solution I was originally thinking of was to do something like the following:
-```
+```js
 const movieResults = document.querySelectorAll(".result");
 movieResults = movieResults.slice(-20);
 movieResults.forEach(movieResult => {
@@ -92,7 +107,7 @@ movieResults.forEach(movieResult => {
   4. Add event handlers to those new results
 
 So something like this:
-```
+```js
 const results = await getResults(state.query, state.page); // API call
 resultsView.renderResults(results);
 
