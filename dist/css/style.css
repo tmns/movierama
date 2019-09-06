@@ -560,6 +560,8 @@ h3 > svg {
 }
 
 .like__container > img {
+  min-width: 20%;
+  min-height: 20%;
   max-width: 20%;
   max-height: 20%;
 }
