@@ -3,13 +3,13 @@ export const lazyLoad = target => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const item = entry.target;
-        const src = item.getAttribute('data-lazy');
+        const src = item.getAttribute("data-lazy");
 
-        item.setAttribute('src', src);
-        
+        item.setAttribute("src", src);
+
         observer.disconnect();
       }
-    })
-  })
+    });
+  });
   obs.observe(target);
-}
+};

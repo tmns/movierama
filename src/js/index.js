@@ -265,7 +265,7 @@ elements.overlay.addEventListener("click", () => {
   likesView.toggleLikesModal();
 });
 
-document.querySelector(".search__field").addEventListener("keydown", function (e) {
+elements.searchInput.addEventListener("keydown", function (e) {
   if (e.key === "Escape") {
     this.blur();
   }
