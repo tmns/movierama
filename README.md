@@ -23,7 +23,7 @@ More specifically, the app allows you to:
 * View more movie details (videos, reviews, and similar movies)
 * **Bonus:** Save movies to a list that is stored in `localStorage` (ie, persists across page reloads, browser closes, etc).
 
-For the last feature, I intentionally left the wording of the functionality vague in the UI. That is, you won't see the phrases 'like', 'favorite', 'want to see', 'add to wishlist', etc. when interacting with the related UI elements. This gives the user the freedom to interpret and use the functionality however they wish. I think its much more user-friendly and flexible this way! 
+For the last feature, I intentionally left the wording of the functionality vague in the UI. That is, you won't see the phrases *like*, *favorite*, *want to see*, *add to wishlist*, etc. when interacting with the related UI elements. This gives the user the freedom to interpret and use the functionality however they wish. I think its much more user-friendly and flexible this way! 
 
 In the codebase however, this functionality is represented by the concept of "Likes" - but this is simply because it was most easy for me to reason about the logic that way.
 
@@ -46,6 +46,8 @@ To build for development, `cd` to project root and run:
 $ npm run dev
 ```
 This will run `webpack` with the `--mode` opption set to `development`.
+
+*Note: All the necessary assets for the app (css, fonts, images) live in the `dist` folder. These are not bundled by `webpack`! As such, if you delete them from `dist` you will delete them completely from the app.*
 
 ## Run
 To run the app in development, `cd` to project root and run:
