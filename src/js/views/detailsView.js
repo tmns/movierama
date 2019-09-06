@@ -133,5 +133,4 @@ export const initDetailsDiv = parent => {
 
 export const clearDetails = parent => {
   const detailsDiv = parent.querySelector(".result__details");    detailsDiv.innerHTML = "";
-
 };

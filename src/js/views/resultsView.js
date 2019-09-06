@@ -82,7 +82,7 @@ const renderMovie = async (likes, movie) => {
   // Add click handler for show more details button
   const showDetailsButton = resultDiv.querySelector(".result__showMore");
 
-  showDetailsButton.addEventListener("click", e => {
+  showDetailsButton.addEventListener("click", () => {
     if (showDetailsButton.classList.contains("result__showMore--active")) {
       resultDiv.classList.remove("result--active");
       showDetailsButton.classList.remove("result__showMore--active");
@@ -117,7 +117,9 @@ const renderMovie = async (likes, movie) => {
   });
 
   // Add event listeners here, due to bug in handling them in index
-  resultDiv.querySelector(".result__like").addEventListener("click", () => {
+  const likeButton = resultDiv.querySelector(".result__like");
+  
+  likeButton.addEventListener("click", () => {
     controlLikes({
       parent: resultDiv,
       id: movie.id,
@@ -127,7 +129,7 @@ const renderMovie = async (likes, movie) => {
     });
   });
 
-  resultDiv.querySelector(".result__like").addEventListener("keydown", e => {
+  likeButton.addEventListener("keydown", e => {
     if (e.key === "Enter") {
       controlLikes({
         parent: resultDiv,

@@ -10,13 +10,9 @@ export const elements = {
   likesList: document.querySelector(".likes__list")
 };
 
-export const elementStrings = {
-  spinner: "spinner"
-};
-
 export const renderSpinner = (parent, extraClass = '') => {
   const spinner = `
-    <div class="${elementStrings.spinner} ${extraClass}">
+    <div class="spinner ${extraClass}">
       <span></span>
     </div>
   `;
@@ -26,7 +22,7 @@ export const renderSpinner = (parent, extraClass = '') => {
 };
 
 export const clearSpinner = () => {
-  const spinner = document.querySelector(`.${elementStrings.spinner}`);
+  const spinner = document.querySelector(".spinner");
 
   if (spinner) {
     spinner.parentElement.removeChild(spinner);
