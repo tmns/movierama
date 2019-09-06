@@ -71,7 +71,11 @@ Of course, improvements could still be made to both the optimization and overall
 * Filters for movie results.
 
 ## Challenges
-* A main challenge I faced was the double rendering of event handlers on all movie result items whenever another page of results was fetched (ie, due to the user scrolling). This led me to defining the event handlers in the view modules rather than the controllers, as this way I was able to add an event handler to each movie result item individually. I am not very happy with this solution because it blurs the borders of compartementalization - ie, I shouldn't have to import a controller into my view. Another solution I was originally thinking of was to do something like the following:
+A main challenge I faced was the double rendering of event handlers on all movie result items whenever another page of results was fetched (ie, due to the user scrolling). This led me to defining the event handlers in the view modules rather than the controllers, as this way I was able to add an event handler to each movie result item individually.
+
+I am not very happy with this solution though because it blurs the borders of compartmentalization - ie, I shouldn't have to import a controller into my view. 
+
+Another solution I was originally thinking of was to do something like the following:
 ```
 const movieResults = document.querySelectorAll(".result");
 movieResults = movieResults.slice(-20);
@@ -81,6 +85,23 @@ movieResults.forEach(movieResult => {
   });
 });
 ```
-* ...in essence, I would first be targeting all movie result items and then selecting the last 20, which would avoid adding an extra event listener to items on the previous 'page'. This would work fine except for one glaring problem - it is not guaranteed that every search result will return 20 items! So, this is not a robust solution. A better solution could be to first calculate how many results have been rendered and then to 
+...in essence, I would first be targeting all movie result items and then selecting the last 20, which would avoid adding an extra event listener to items on the previous 'page'. This would work fine except for one glaring problem - it is not guaranteed that every search result will return 20 items! So, this is not a robust solution. A better solution could be to: 
+  1. Calculate how many new results have been rendered
+  2. Grab all results with `querySelectorAll`
+  3. `slice` out the number of new results from the end
+  4. Add event handlers to those new results
 
+So something like this:
+```
+const results = await getResults(state.query, state.page); // API call
+resultsView.renderResults(results);
+
+const allResultsRendered = [...document.querySelectorAll('.result')];
+const newResultsRendered = allResultsRendered.slice(-results.length);
+
+newResultsRendered.forEach(addEventHandlers);
+```
+I like this solution as it stands alone but since results get rendered in different controllers, based on different conditions, it grew to be a little cumbersome trying to implement it everywhere appropriate. 
+
+As such, in the end I left my implementation as is (defining the event handlers from the view). I am looking forward to discussing this issue with you all and finding out a better solution together!
 
