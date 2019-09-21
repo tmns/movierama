@@ -1,6 +1,6 @@
 # MovieRama
 
-![](./screens/screen.png)
+![](./screens/demo.gif)
 
 ## Table of Contents
 * [Intro](#intro)
